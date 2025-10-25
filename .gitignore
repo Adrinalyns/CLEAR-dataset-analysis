@@ -1,8 +1,13 @@
-*DS_Store
-*png
-*jpeg
-*docx
-*pdf
+# macOS system files
+*.DS_Store
+
+# Image files
+*.png
+*.jpeg
+
+# Document files
+*.docx
+*.pdf
 
 # Visual Studio Code settings
 .vscode/
