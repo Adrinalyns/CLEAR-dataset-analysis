@@ -3,3 +3,10 @@
 *jpeg
 *docx
 *pdf
+
+# Visual Studio Code settings
+.vscode/
+
+# Python cache files
+__pycache__/
+*.pyc
