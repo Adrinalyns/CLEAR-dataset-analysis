@@ -91,12 +91,16 @@ from conversion import convert_column_to_numeric, convert_column_to_date
 
 from constants import TC_10, TC_30, TC_50, TC_100, AB_10, AB_30, AB_50, AB_100, EVENT_TYPES
 from constants import EASTERN, WESTERN, TIME_FLARE, TIME_CME, TIME_PEAK, TIME_MAX, TIME_SEP
+from constants import FLARE_TO_PEAK, CME_TO_PEAK, SEP_TO_PEAK, FLARE_TO_MAX, CME_TO_MAX, SEP_TO_MAX
 
 from dataset_errors_finding import test_rise_time_to_onset, print_errors_in_rise_time_to_onset
 from dataset_errors_finding import test_rise_time_to_max, print_errors_in_rise_time_to_max
 from dataset_errors_finding import test_longitude_range
 
-plt.style.use('seaborn-darkgrid')
+from calculate_delays import calculate_flare_to_peak_delay, calculate_CME_to_peak_delay, calculate_CME_to_max_delay, calculate_flare_to_max_delay
+from tests.test_calculate_delays import test_flare_to_peak_delay, test_CME_to_peak_delay, test_CME_to_max_delay, test_flare_to_max_delay
+
+plt.style.use('seaborn-v0_8-darkgrid')
 
 
 #Define the directory used
@@ -332,125 +336,17 @@ def test_subset_selection(df,all=0):
         assert df_test.equals(df_expected), "Test Failed"
         print("Test passed!")
 
-def calculate_flare_to_peak_delay(df):
-    '''
-    This function compute the delay between the Flare time and the Onset Peak time for each event in the dataframe.
-    It calculates the delay only if the Onset Peak time and the Flare time are defined.
-
-    Parameters:
-    -----------
-    df : panda DataFrame
-        the dataframe containing all event information
-
-    Returns:
-    --------
-    df : pandas DataFrame
-        The dataframe with an additional column 'Flare Time to Onset (minutes)' containing the delay in minutes
-    '''
-    for event_type in EVENT_TYPES:
-        df[event_type + 'Flare Time to Onset (minutes)'] = (pd.to_datetime(df[event_type + TIME_PEAK]) - pd.to_datetime(df[TIME_FLARE])).dt.total_seconds() / 60.0
-
-    return df
-
-def test_flare_to_peak_delay(df):
-    '''
-    Test the flare to peak delay for all events, looking at all event types if they exist.
-    The flare to peak delay is defined as the time between the Flare time and the Onset peak time.
-    The function checks if the calculated flare to peak delay matches the value in the dataframe.
-    
-    Parameters:
-    -----------
-    df : panda DataFrame
-        the dataframe containing all event information
-    '''
-    k=0 #variable to count the number of values not null in all the columns '*** Flare Time to Onset (minutes)'
-
-    #looking at all known event
-    for index,row in df.iterrows():
-        print(f"Testing index {index}...")
-
-        #looking at all integral flux/event types
-        for event_type in EVENT_TYPES:
-
-            #Verifying that the Onset peak time exists for this event type
-            if pd.notnull(row[event_type + TIME_PEAK] ) & pd.notnull(row[TIME_FLARE]):
-                print(f"\t Testing event type {event_type}...")
-                #Calculating the flare to peak delay (substracting the Flare Time to the Onset peak time)
-                flare_to_peak_delay_calculated=(pd.to_datetime(row[event_type + TIME_PEAK]) - pd.to_datetime(row[TIME_FLARE])).total_seconds() / 60.0
-                #Checking if the calculated flare to peak delay matches the value in the dataframe
-                assert np.isclose(flare_to_peak_delay_calculated, row[event_type + 'Flare Time to Onset (minutes)']), f"Flare to Onset delay test failed for index {index} and event type {event_type}"
-                
-                k+=1 # +1 existing and is accurate value in '*** Flare Time to Onset (minutes)'
-            
-            else:
-                #If the Onset peak time or the Flare peak time is not defined, the delay should be NaN
-                assert pd.isnull(row[event_type + 'Flare Time to Onset (minutes)']), f"Flare to Peak delay test failed for index {index} and event type {event_type}"
-    print("All tests passed!")
-
-    print(f"Number of non-null values in '*** Flare Time to Onset (minutes)': {k}")
-
-def calculate_CME_to_peak_delay(df):
-    '''
-    This function compute the delay between the CME time and the Onset Peak time for each event in the dataframe.
-    It calculates the delay only if the Onset Peak time and the CME time are defined.
-
-    Parameters:
-    -----------
-    df : panda DataFrame
-        the dataframe containing all event information
-
-    Returns:
-    --------
-    df : pandas DataFrame
-        The dataframe with an additional column 'CME Time to Onset (minutes)' containing the delay in minutes
-    '''
-    for event_type in EVENT_TYPES:
-        df[event_type + 'CME Time to Onset (minutes)'] = (pd.to_datetime(df[event_type + TIME_PEAK]) - pd.to_datetime(df[TIME_CME])).dt.total_seconds() / 60.0
-
-    return df
-
-def test_CME_to_peak_delay(df):
-    '''
-    Test the CME to peak delay for all events, looking at all event types if they exist.
-    The CME to peak delay is defined as the time between the CME time and the Onset peak time.
-    The function checks if the calculated CME to peak delay matches the value in the dataframe.
-
-    Parameters:
-    -----------
-    df : panda DataFrame
-        the dataframe containing all event information
-    '''
-    
-    k=0 #variable to count the number of values not null in all the columns '***CME Time to Onset (minutes)'
-
-    #looking at all known event
-    for index,row in df.iterrows():
-        print(f"Testing index {index}...")
-
-        #looking at all integral flux/event types
-        for event_type in EVENT_TYPES:
-
-            #Verifying that the Onset peak time exists for this event type
-            if pd.notnull(row[event_type + TIME_PEAK] ) & pd.notnull(row[TIME_CME]):
-                print(f"\t Testing event type {event_type}...")
-                #Calculating the CME to peak delay (substracting the CME Time to the Onset peak time)
-                CME_to_peak_delay_calculated=(pd.to_datetime(row[event_type + TIME_PEAK]) - pd.to_datetime(row[TIME_CME])).total_seconds() / 60.0
-                
-                #Checking if the calculated CME to peak delay matches the value in the dataframe
-                assert np.isclose(CME_to_peak_delay_calculated, row[event_type + 'CME Time to Onset (minutes)']), f"CME to Onset delay test failed for index {index} and event type {event_type}"
-                
-                k+=1 # +1 existing and is accurate value in '***CME Time to Onset (minutes)'
-
-            else:
-                #If the Onset peak time or the CME time is not defined, the delay should be NaN
-                assert pd.isnull(row[event_type + 'CME Time to Onset (minutes)']), f"CME to Peak delay test failed for index {index} and event type {event_type}"
-    
-    print("All tests passed!")
-    print(f"Number of non-null values in '***CME Time to Onset (minutes)': {k}")
 
 
 
-
+df=calculate_CME_to_max_delay(df)
+test_CME_to_max_delay(df)
+df=calculate_CME_to_peak_delay(df)
+test_CME_to_peak_delay(df)
+df=calculate_flare_to_max_delay(df)
+test_flare_to_max_delay(df)
+df=calculate_flare_to_peak_delay(df)
+test_flare_to_peak_delay(df)
 
 
 '''

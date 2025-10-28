@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 #Define the Constants: 
 #different event types
 TC_10='>10.0 MeV 10.0 pfu '
@@ -24,3 +26,12 @@ TIME_CME='CME CDAW First Look Time'
 TIME_PEAK='Onset Peak Time'
 TIME_MAX='Max Flux Time'
 TIME_SEP='SEP Start Time'
+
+#Delays, they depends on the flux type, some of the columns they refer to must be created in the dataframe
+FLARE_TO_PEAK='Flare Time to Onset (minutes)'
+CME_TO_PEAK='CME Time to Onset (minutes)'
+SEP_TO_PEAK='Rise Time to Onset (minutes)'
+
+FLARE_TO_MAX='Flare Time to Max (minutes)'
+CME_TO_MAX='CME Time to Max (minutes)'
+SEP_TO_MAX='Rise Time to Max (minutes)'
