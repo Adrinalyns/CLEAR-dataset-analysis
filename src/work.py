@@ -98,36 +98,7 @@ from dataset_errors_finding import test_rise_time_to_max, print_errors_in_rise_t
 from dataset_errors_finding import test_longitude_range
 
 from calculate_delays import calculate_flare_to_peak_delay, calculate_CME_to_peak_delay, calculate_CME_to_max_delay, calculate_flare_to_max_delay
-from tests.test_calculate_delays import test_flare_to_peak_delay, test_CME_to_peak_delay, test_CME_to_max_delay, test_flare_to_max_delay
-
 plt.style.use('seaborn-v0_8-darkgrid')
-
-
-#Define the directory used
-file_name='GOES_integral_PRIMARY.1986-02-03.2025-09-10_sep_events.csv'
-#'GOES-06_integral_enhance_idsep.1986-01-01.1994-11-30_sep_events.csv'
-file_path='Datasets/'
-#'../output/opsep/GOES-06_integral_enhance_idsep/'
-
-#Read the main SEP event file into a pandas DataFrame
-df = pd.read_csv(file_path + file_name)
-df=df.iloc[:-1] #removing the last row because its longitude is out of range [-180;180]
-
-#Convert relevant columns to the correct data type
-df=convert_column_to_date(df,'Time Period Start',notify_changes=True)
-
-df=convert_column_to_numeric(df,'Flare Magnitude',notify_changes=True)
-df=convert_column_to_numeric(df,'CDAW CME Speed',notify_changes=True)
-df=convert_column_to_numeric(df,'DONKI CME Speed',notify_changes=True)
-df=convert_column_to_numeric(df,'Event Longitude',notify_changes=True)
-
-df=convert_column_to_date(df,TIME_FLARE,notify_changes=True)
-df=convert_column_to_date(df,TIME_CME,notify_changes=True)
-
-for event_type in EVENT_TYPES:
-    df=convert_column_to_date(df,event_type + TIME_SEP,notify_changes=True)
-    df=convert_column_to_date(df,event_type + TIME_PEAK,notify_changes=True)
-    df=convert_column_to_date(df,event_type + TIME_MAX,notify_changes=True)
 
 
 def plot_flux_time_series(file_path,event,event_type):
@@ -336,18 +307,75 @@ def test_subset_selection(df,all=0):
         assert df_test.equals(df_expected), "Test Failed"
         print("Test passed!")
 
+def prepare_dataframe():
+    '''
+    This function prepare the dataframe by reading the SEP event file,
+    converting relevant columns to the correct data type,
+    and calculating all additional columns (delays).
+
+    Returns:
+    --------
+    df : pandas DataFrame
+        The prepared dataframe containing all event information
+    '''
+    #Define the directory used
+    file_name='GOES_integral_PRIMARY.1986-02-03.2025-09-10_sep_events.csv'
+    #'GOES-06_integral_enhance_idsep.1986-01-01.1994-11-30_sep_events.csv'
+    file_path='Datasets/'
+    #'../output/opsep/GOES-06_integral_enhance_idsep/'
+
+    #Read the main SEP event file into a pandas DataFrame
+    df = pd.read_csv(file_path + file_name)
+    df=df.iloc[:-1] #removing the last row because its longitude is out of range [-180;180]
+
+    #Convert relevant columns to the correct data type
+    df=convert_column_to_date(df,'Time Period Start',notify_changes=True)
+
+    df=convert_column_to_numeric(df,'Flare Magnitude',notify_changes=True)
+    df=convert_column_to_numeric(df,'CDAW CME Speed',notify_changes=True)
+    df=convert_column_to_numeric(df,'DONKI CME Speed',notify_changes=True)
+    df=convert_column_to_numeric(df,'Event Longitude',notify_changes=True)
+
+    df=convert_column_to_date(df,TIME_FLARE,notify_changes=True)
+    df=convert_column_to_date(df,TIME_CME,notify_changes=True)
+
+    for event_type in EVENT_TYPES:
+        df=convert_column_to_date(df,event_type + TIME_SEP,notify_changes=True)
+        df=convert_column_to_date(df,event_type + TIME_PEAK,notify_changes=True)
+        df=convert_column_to_date(df,event_type + TIME_MAX,notify_changes=True)
+
+    #Calculate all aditional columns (delays)
+    df=calculate_flare_to_peak_delay(df)
+    df=calculate_CME_to_peak_delay(df)
+    df=calculate_CME_to_max_delay(df)
+    df=calculate_flare_to_max_delay(df)
+    
+    return df
+
+df=prepare_dataframe()
+#select a subset of events
+
+event_type=TC_100
+df_subset=subset_selection(df, event_type=event_type, Event_longitude=WESTERN, Flare_magnitude=1e-5)
+print(df_subset.shape)
 
 
+CME_to_max_delays=df_subset[event_type + CME_TO_MAX].dropna().values/60.0 #in hours
+Flare_to_max_delays=df_subset[event_type + FLARE_TO_MAX].dropna().values/60.0 #in hours
+SEP_to_max_delays=df_subset[event_type + SEP_TO_MAX].dropna().values/60.0 #in hours
+#Plot the histogram of the CME to Max delays for the selected subset of events
+counts, bins = np.histogram(CME_to_max_delays, bins=10)
+plt.stairs(counts, bins, label=' CME to Max Delay')
+counts, bins = np.histogram(Flare_to_max_delays, bins=10)
+plt.stairs(counts, bins, label=' Flare to Max Delay')
+counts, bins = np.histogram(SEP_to_max_delays, bins=10)
+plt.stairs(counts, bins, label=' SEP to Max Delay')
 
-df=calculate_CME_to_max_delay(df)
-test_CME_to_max_delay(df)
-df=calculate_CME_to_peak_delay(df)
-test_CME_to_peak_delay(df)
-df=calculate_flare_to_max_delay(df)
-test_flare_to_max_delay(df)
-df=calculate_flare_to_peak_delay(df)
-test_flare_to_peak_delay(df)
-
+plt.xlabel('CME to Max Delay (hours)')
+plt.ylabel('Number of Events')
+plt.title(f'Histogram of Delays for {event_type}, western event, Flare magnitude >= 1e-5')
+plt.show()
+plt.legend()
 
 '''
 #Example to verify that the max flux is defined for all event types, even when the threshold is not reached
