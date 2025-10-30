@@ -211,6 +211,7 @@ def subset_selection(df,event_type=None,Event_longitude=None,Flare_magnitude=Non
 
     return df
 
+
 def test_subset_selection(df,all=0):
     '''
     Test the function subset_selection to ensure it works as expected.
@@ -307,6 +308,7 @@ def test_subset_selection(df,all=0):
         assert df_test.equals(df_expected), "Test Failed"
         print("Test passed!")
 
+
 def prepare_dataframe():
     '''
     This function prepare the dataframe by reading the SEP event file,
@@ -352,30 +354,132 @@ def prepare_dataframe():
     
     return df
 
+
+def histogram_of_delays_max(df,event_type,Event_longitude=None,Flare_magnitude=None,CDAW_speed=None,DONKI_speed=None):
+    '''
+    This function plot the histogram of the delays (CME to Max, Flare to Max, SEP to Max)
+    for a subset of events selected according to the selection criteria.
+    Parameters:
+    -----------
+    df : panda DataFrame
+        the dataframe containing all event information
+    event_type : string
+        The type of event (Threshold Crossing, Above Background, and the differential flux studied).
+        Use the constants defined above (eg TC_10, AB_10...)
+    Event_longitude : (float,float), default to None
+        The minimum and maximum longitude of the events to consider (in degrees)
+    Flare_magnitude : string, default to None
+        The minimum flare magnitude of the SEP. M-class : flare magnitude >= 1e-5 (W/m^2)
+    CDAW_speed : float, default to None
+        The minimum speed of the CME from the CDAW catalog (km/s)
+    DONKI_speed : float, default to None
+        The minimum speed of the CME from the DONKI catalog (km/s)
+    '''
+    #Selecting the subset of events according to the selection criteria
+    df_subset=subset_selection(df, event_type=event_type, Event_longitude=Event_longitude, Flare_magnitude=Flare_magnitude, CDAW_speed=CDAW_speed, DONKI_speed=DONKI_speed)
+    print(df_subset.shape) #to see how many events are in the subset, if there is enough data
+
+    #Get the delays for the selected subset of events and convert them to hours
+    CME_to_max_delays=df_subset[event_type + CME_TO_MAX].dropna().values/60.0 #in hours
+    Flare_to_max_delays=df_subset[event_type + FLARE_TO_MAX].dropna().values/60.0 #in hours
+    SEP_to_max_delays=df_subset[event_type + SEP_TO_MAX].dropna().values/60.0 #in hours
+
+    #Plot the histogram of the CME to Max delays for the selected subset of events
+    fig,ax=plt.subplots(1,1,figsize=(10,6))
+
+    counts, bins = np.histogram(CME_to_max_delays, bins=30)
+    ax.stairs(counts, bins, label=' CME to Max Delay')
+    counts, bins = np.histogram(Flare_to_max_delays, bins=30)
+    ax.stairs(counts, bins, label=' Flare to Max Delay')
+    counts, bins = np.histogram(SEP_to_max_delays, bins=30)
+    ax.stairs(counts, bins, label=' SEP to Max Delay')
+
+    #Create the title based on the selection criteria
+    title=f'Histogram of Delays for {event_type}, '
+    if Event_longitude is not None:
+        title+=f'longitude {Event_longitude}, '
+    if Flare_magnitude is not None:
+        title+=f'Flare magnitude >= {Flare_magnitude}, '
+    if CDAW_speed is not None:
+        title+=f'CDAW speed >= {CDAW_speed} km/s, '
+    if DONKI_speed is not None:
+        title+=f'DONKI speed >= {DONKI_speed} km/s, '
+    
+    ax.set_xlabel('CME to Max Delay (hours)')
+    ax.set_ylabel('Number of Events')
+    ax.set_title(title)
+    plt.show()
+    plt.legend()
+
+
+def histogram_of_delays_peak(df,event_type,Event_longitude=None,Flare_magnitude=None,CDAW_speed=None,DONKI_speed=None):
+    '''
+    This function plot the histogram of the delays (CME to Peak, Flare to Peak, SEP to Peak)
+    for a subset of events selected according to the selection criteria.
+    Parameters:
+    -----------
+    df : panda DataFrame
+        the dataframe containing all event information
+    event_type : string
+        The type of event (Threshold Crossing, Above Background, and the differential flux studied).
+        Use the constants defined above (eg TC_10, AB_10...)
+    Event_longitude : (float,float), default to None
+        The minimum and maximum longitude of the events to consider (in degrees)
+    Flare_magnitude : string, default to None
+        The minimum flare magnitude of the SEP. M-class : flare magnitude >= 1e-5 (W/m^2)
+    CDAW_speed : float, default to None
+        The minimum speed of the CME from the CDAW catalog (km/s)
+    DONKI_speed : float, default to None
+        The minimum speed of the CME from the DONKI catalog (km/s)
+    '''
+    #Selecting the subset of events according to the selection criteria
+    df_subset=subset_selection(df, event_type=event_type, Event_longitude=Event_longitude, Flare_magnitude=Flare_magnitude, CDAW_speed=CDAW_speed, DONKI_speed=DONKI_speed)
+    print(df_subset.shape) #to see how many events are in the subset, if there is enough data
+
+    #Get the delays for the selected subset of events and convert them to hours
+    CME_to_peak_delays=df_subset[event_type + CME_TO_PEAK].dropna().values/60.0 #in hours
+    Flare_to_peak_delays=df_subset[event_type + FLARE_TO_PEAK].dropna().values/60.0 #in hours
+    SEP_to_peak_delays=df_subset[event_type + SEP_TO_PEAK].dropna().values/60.0 #in hours
+
+    #Plot the histogram of the CME to Peak delays for the selected subset of events
+    fig,ax=plt.subplots(1,1,figsize=(10,6))
+
+    counts, bins = np.histogram(CME_to_peak_delays, bins=30)
+    ax.stairs(counts, bins, label=' CME to Peak Delay')
+    counts, bins = np.histogram(Flare_to_peak_delays, bins=30)
+    ax.stairs(counts, bins, label=' Flare to Peak Delay')
+    counts, bins = np.histogram(SEP_to_peak_delays, bins=30)
+    ax.stairs(counts, bins, label=' SEP to Peak Delay')
+
+    #Create the title based on the selection criteria
+    title=f'Histogram of Delays for {event_type}, '
+    if Event_longitude is not None:
+        title+=f'longitude {Event_longitude}, '
+    if Flare_magnitude is not None:
+        title+=f'Flare magnitude >= {Flare_magnitude}, '
+    if CDAW_speed is not None:
+        title+=f'CDAW speed >= {CDAW_speed} km/s, '
+    if DONKI_speed is not None:
+        title+=f'DONKI speed >= {DONKI_speed} km/s, '
+    
+    ax.set_xlabel('CME to Max Delay (hours)')
+    ax.set_ylabel('Number of Events')
+    ax.set_title(title)
+    plt.show()
+    plt.legend()
+
+
 df=prepare_dataframe()
-#select a subset of events
 
-event_type=TC_100
-df_subset=subset_selection(df, event_type=event_type, Event_longitude=WESTERN, Flare_magnitude=1e-5)
-print(df_subset.shape)
+histogram_of_delays_max(df,TC_10,Event_longitude=WESTERN,Flare_magnitude=1e-5)
+histogram_of_delays_max(df,TC_30,Event_longitude=WESTERN,Flare_magnitude=1e-5)
+histogram_of_delays_max(df,TC_50,Event_longitude=WESTERN,Flare_magnitude=1e-5)
+histogram_of_delays_max(df,TC_100,Event_longitude=WESTERN,Flare_magnitude=1e-5)
 
-
-CME_to_max_delays=df_subset[event_type + CME_TO_MAX].dropna().values/60.0 #in hours
-Flare_to_max_delays=df_subset[event_type + FLARE_TO_MAX].dropna().values/60.0 #in hours
-SEP_to_max_delays=df_subset[event_type + SEP_TO_MAX].dropna().values/60.0 #in hours
-#Plot the histogram of the CME to Max delays for the selected subset of events
-counts, bins = np.histogram(CME_to_max_delays, bins=10)
-plt.stairs(counts, bins, label=' CME to Max Delay')
-counts, bins = np.histogram(Flare_to_max_delays, bins=10)
-plt.stairs(counts, bins, label=' Flare to Max Delay')
-counts, bins = np.histogram(SEP_to_max_delays, bins=10)
-plt.stairs(counts, bins, label=' SEP to Max Delay')
-
-plt.xlabel('CME to Max Delay (hours)')
-plt.ylabel('Number of Events')
-plt.title(f'Histogram of Delays for {event_type}, western event, Flare magnitude >= 1e-5')
-plt.show()
-plt.legend()
+histogram_of_delays_peak(df,TC_10,Event_longitude=WESTERN,Flare_magnitude=1e-5)
+histogram_of_delays_peak(df,TC_30,Event_longitude=WESTERN,Flare_magnitude=1e-5)
+histogram_of_delays_peak(df,TC_50,Event_longitude=WESTERN,Flare_magnitude=1e-5)
+histogram_of_delays_peak(df,TC_100,Event_longitude=WESTERN,Flare_magnitude=1e-5)
 
 '''
 #Example to verify that the max flux is defined for all event types, even when the threshold is not reached
