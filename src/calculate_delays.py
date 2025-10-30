@@ -27,6 +27,7 @@ def calculate_flare_to_max_delay(df):
 
     return df
 
+
 def calculate_CME_to_max_delay(df):
     '''
     This function compute the delay between the CME time and the Max Flux time for each event in the dataframe.
@@ -47,6 +48,7 @@ def calculate_CME_to_max_delay(df):
 
     return df
 
+
 def calculate_CME_to_peak_delay(df):
     '''
     This function compute the delay between the CME time and the Onset Peak time for each event in the dataframe.
@@ -66,6 +68,7 @@ def calculate_CME_to_peak_delay(df):
         df[event_type + CME_TO_PEAK] = (pd.to_datetime(df[event_type + TIME_PEAK]) - pd.to_datetime(df[TIME_CME])).dt.total_seconds() / 60.0
 
     return df
+
 
 def calculate_flare_to_peak_delay(df):
     '''

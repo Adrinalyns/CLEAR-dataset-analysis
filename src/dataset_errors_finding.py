@@ -40,6 +40,7 @@ def test_rise_time_to_onset(df):
                 
     print("All tests passed!")
 
+
 def print_errors_in_rise_time_to_onset(df):
     '''
     Print the errors in the rise time to onset for all events, looking at all event types if they exist.
@@ -73,6 +74,7 @@ def print_errors_in_rise_time_to_onset(df):
                     print(f"\t Onset Peak Time : {row[event_type + TIME_PEAK]}\n")
     print("Error search completed!")
 
+
 def test_rise_time_to_max(df):
     '''
     Test the rise time to max for all events, looking at all event types if they exist.
@@ -102,6 +104,7 @@ def test_rise_time_to_max(df):
                 assert np.isclose(rise_time_to_max_calculated, row[event_type + 'Rise Time to Max (minutes)']), f"Rise time to max test failed for index {index} and event type {event_type}"
 
     print("All tests passed!")
+
 
 def print_errors_in_rise_time_to_max(df):
     '''

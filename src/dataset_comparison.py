@@ -83,7 +83,6 @@ Other parameters:
     PRF,Comments
 '''
 
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -127,6 +126,7 @@ def test_dataframe_format(df1,name1,df2,name2):
         
         assert df1_1st_line[k]==df2_1st_line[k], f'The column {df1_1st_line[k]} of the dataset {name1} does not match the column {df2_1st_line[k]} of the dataset {name2}, one column may be missing, or the columns may be in a different order'
     print(f'\tThe columns name of the dataset {name1} and the dataset {name2} match perfectly (same name and same order)')
+
 
 def test_columns_print_all(df1,name1,df2,name2):
     '''
@@ -183,6 +183,7 @@ def test_columns_print_all(df1,name1,df2,name2):
     #If there was any difference found it raise an assertion
     assert (are_datasets_equals),f'The datasets {name1} and {name2} are not the same. All the differences are listed above'
     print(f'\nThe datasets {name1} and {name2} are the same! (except for the columns "**** Fluence Spectrum (cm^-2)")')
+
 
 def test_columns_print_errors(df1,name1,df2,name2):
     '''
@@ -244,6 +245,7 @@ def test_columns_print_errors(df1,name1,df2,name2):
     #If there was any difference found it raise an assertion
     assert (are_datasets_equals),f'The datasets {name1} and {name2} are not the same. All the differences are listed above'
     print(f'\nThe datasets {name1} and {name2} are the same!')
+
 
 #Test Campaign:
 

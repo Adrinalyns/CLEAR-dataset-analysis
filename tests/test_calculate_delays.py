@@ -9,6 +9,7 @@ from src.constants import FLARE_TO_PEAK, CME_TO_PEAK, SEP_TO_PEAK, FLARE_TO_MAX,
 
 from src.calculate_delays import calculate_flare_to_peak_delay, calculate_CME_to_peak_delay, calculate_CME_to_max_delay, calculate_flare_to_max_delay
 
+
 def test_flare_to_peak_delay(df):
     '''
     Test the flare to peak delay for all events, looking at all event types if they exist.
@@ -45,6 +46,7 @@ def test_flare_to_peak_delay(df):
     print("All tests passed!")
 
     print(f"Number of non-null values in '*** Flare Time to Onset (minutes)': {k}")
+
 
 def test_CME_to_peak_delay(df):
     '''
@@ -85,6 +87,7 @@ def test_CME_to_peak_delay(df):
     print("All tests passed!")
     print(f"Number of non-null values in '***CME Time to Onset (minutes)': {k}")
 
+
 def test_CME_to_max_delay(df):
     '''
     Test the CME to max delay for all events, looking at all event types if they exist.
@@ -124,6 +127,7 @@ def test_CME_to_max_delay(df):
     print("All tests passed!")
     print(f"Number of non-null values in '***CME Time to Max (minutes)': {k}")
 
+
 def test_flare_to_max_delay(df):
     '''
     Test the flare to max delay for all events, looking at all event types if they exist.
@@ -162,6 +166,7 @@ def test_flare_to_max_delay(df):
     
     print("All tests passed!")
     print(f"Number of non-null values in '*** Flare Time to Max (minutes)': {k}")
+
 
 #Define the directory used
 file_name='GOES_integral_PRIMARY.1986-02-03.2025-09-10_sep_events.csv'

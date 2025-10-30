@@ -151,6 +151,7 @@ def plot_flux_time_series(file_path,event,event_type):
 
     return fig,ax
 
+
 def subset_selection(df,event_type=None,Event_longitude=None,Flare_magnitude=None,CDAW_speed=None,DONKI_speed=None):
     '''
     This function return a subset of SEP event data frame according to the selection criteria.
@@ -480,6 +481,9 @@ histogram_of_delays_peak(df,TC_10,Event_longitude=WESTERN,Flare_magnitude=1e-5)
 histogram_of_delays_peak(df,TC_30,Event_longitude=WESTERN,Flare_magnitude=1e-5)
 histogram_of_delays_peak(df,TC_50,Event_longitude=WESTERN,Flare_magnitude=1e-5)
 histogram_of_delays_peak(df,TC_100,Event_longitude=WESTERN,Flare_magnitude=1e-5)
+
+
+
 
 '''
 #Example to verify that the max flux is defined for all event types, even when the threshold is not reached
