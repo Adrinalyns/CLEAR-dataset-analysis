@@ -84,6 +84,7 @@ Other parameters:
 '''
 
 import pandas as pd
+import os
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -356,7 +357,29 @@ def prepare_dataframe():
     return df
 
 
-def histogram_of_delays_max(df,event_type,Event_longitude=None,Flare_magnitude=None,CDAW_speed=None,DONKI_speed=None):
+ 
+
+def load_generate_dataset(force=False):
+    """
+    This function either loads an existing dataset from a pickle file
+    or generates a new dataset by calling the prepare_dataframe function.
+    If the dataset is generated, it is saved to a pickle file for future use, 
+    so that it doesn't need to be regenerated each time.
+    """
+    DATA_PATH = "Datasets/my_dataset.pkl" 
+    if not force and os.path.exists(DATA_PATH):
+        print("Loading the existing dataset...")
+        return pd.read_pickle(DATA_PATH)
+    else:
+        print("Generating the dataset...")
+        df = prepare_dataframe()
+        df.to_pickle(DATA_PATH)
+        print("Dataset saved in", DATA_PATH)
+        return df
+
+
+
+def histogram_of_delays_max(df,event_type,Event_longitude=None,Flare_magnitude=None,CDAW_speed=None,DONKI_speed=None,debug=False):
     '''
     This function plot the histogram of the delays (CME to Max, Flare to Max, SEP to Max)
     for a subset of events selected according to the selection criteria.
@@ -379,7 +402,6 @@ def histogram_of_delays_max(df,event_type,Event_longitude=None,Flare_magnitude=N
     #Selecting the subset of events according to the selection criteria
     df_subset=subset_selection(df, event_type=event_type, Event_longitude=Event_longitude, Flare_magnitude=Flare_magnitude, CDAW_speed=CDAW_speed, DONKI_speed=DONKI_speed)
     print(df_subset.shape) #to see how many events are in the subset, if there is enough data
-
     #Get the delays for the selected subset of events and convert them to hours
     CME_to_max_delays=df_subset[event_type + CME_TO_MAX].dropna().values/60.0 #in hours
     Flare_to_max_delays=df_subset[event_type + FLARE_TO_MAX].dropna().values/60.0 #in hours
@@ -412,8 +434,10 @@ def histogram_of_delays_max(df,event_type,Event_longitude=None,Flare_magnitude=N
     plt.show()
     plt.legend()
 
+    
 
-def histogram_of_delays_peak(df,event_type,Event_longitude=None,Flare_magnitude=None,CDAW_speed=None,DONKI_speed=None):
+
+def histogram_of_delays_peak(df,event_type,Event_longitude=None,Flare_magnitude=None,CDAW_speed=None,DONKI_speed=None,debug=False):
     '''
     This function plot the histogram of the delays (CME to Peak, Flare to Peak, SEP to Peak)
     for a subset of events selected according to the selection criteria.
@@ -469,19 +493,26 @@ def histogram_of_delays_peak(df,event_type,Event_longitude=None,Flare_magnitude=
     plt.show()
     plt.legend()
 
+    if debug:
+        print("CME to peak delays < 0:")
+        print(CME_to_peak_delays[CME_to_peak_delays<0])
+        print("Flare to peak delays < 0:")
+        print(Flare_to_peak_delays[Flare_to_peak_delays<0])
+        print("SEP to peak delays < 0:")
+        print(SEP_to_peak_delays[SEP_to_peak_delays<0])
 
-df=prepare_dataframe()
 
+
+df=load_generate_dataset()
 histogram_of_delays_max(df,TC_10,Event_longitude=WESTERN,Flare_magnitude=1e-5)
 histogram_of_delays_max(df,TC_30,Event_longitude=WESTERN,Flare_magnitude=1e-5)
 histogram_of_delays_max(df,TC_50,Event_longitude=WESTERN,Flare_magnitude=1e-5)
 histogram_of_delays_max(df,TC_100,Event_longitude=WESTERN,Flare_magnitude=1e-5)
 
-histogram_of_delays_peak(df,TC_10,Event_longitude=WESTERN,Flare_magnitude=1e-5)
-histogram_of_delays_peak(df,TC_30,Event_longitude=WESTERN,Flare_magnitude=1e-5)
-histogram_of_delays_peak(df,TC_50,Event_longitude=WESTERN,Flare_magnitude=1e-5)
-histogram_of_delays_peak(df,TC_100,Event_longitude=WESTERN,Flare_magnitude=1e-5)
-
+histogram_of_delays_peak(df,TC_10,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
+histogram_of_delays_peak(df,TC_30,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
+histogram_of_delays_peak(df,TC_50,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
+histogram_of_delays_peak(df,TC_100,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
 
 
 
