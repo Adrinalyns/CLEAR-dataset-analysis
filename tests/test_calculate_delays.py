@@ -169,13 +169,15 @@ def test_flare_to_max_delay(df):
 
 
 #Define the directory used
-file_name='GOES_integral_PRIMARY.1986-02-03.2025-09-10_sep_events.csv'
+#file_name='GOES_integral_PRIMARY.1986-02-03.2025-09-10_sep_events.csv'
+file_name='my_dataset.pkl'
 #'GOES-06_integral_enhance_idsep.1986-01-01.1994-11-30_sep_events.csv'
 file_path='Datasets/'
 #'../output/opsep/GOES-06_integral_enhance_idsep/'
 
 #Read the main SEP event file into a pandas DataFrame
-df = pd.read_csv(file_path + file_name)
+#df = pd.read_csv(file_path + file_name)
+df = pd.read_pickle(file_path + file_name)
 
 #Calculate all aditional columns (delays)
 df=calculate_CME_to_max_delay(df)
