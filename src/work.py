@@ -98,7 +98,8 @@ from dataset_errors_finding import test_rise_time_to_onset, print_errors_in_rise
 from dataset_errors_finding import test_rise_time_to_max, print_errors_in_rise_time_to_max
 from dataset_errors_finding import test_longitude_range
 
-from calculate_delays import calculate_flare_to_peak_delay, calculate_CME_to_peak_delay, calculate_CME_to_max_delay, calculate_flare_to_max_delay
+from calculate_delays import calculate_flare_to_peak_delay, calculate_CME_to_peak_delay, corrects_sep_to_peak_delay
+from calculate_delays import calculate_CME_to_max_delay, calculate_flare_to_max_delay, corrects_sep_to_max_delay
 plt.style.use('seaborn-v0_8-darkgrid')
 
 
@@ -349,10 +350,14 @@ def prepare_dataframe():
         df=convert_column_to_date(df,event_type + TIME_MAX,notify_changes=True)
 
     #Calculate all aditional columns (delays)
-    df=calculate_flare_to_peak_delay(df)
-    df=calculate_CME_to_peak_delay(df)
     df=calculate_CME_to_max_delay(df)
     df=calculate_flare_to_max_delay(df)
+    df=calculate_flare_to_peak_delay(df)
+    df=calculate_CME_to_peak_delay(df)
+    
+    #Correcting the SEP to peak and SEP to max delay columns if they exist
+    df=corrects_sep_to_max_delay(df)
+    df=corrects_sep_to_peak_delay(df)
     
     return df
 
@@ -434,6 +439,13 @@ def histogram_of_delays_max(df,event_type,Event_longitude=None,Flare_magnitude=N
     plt.show()
     plt.legend()
 
+    if debug:
+        print("CME to peak delays < 0:")
+        print(CME_to_max_delays[CME_to_max_delays<0])
+        print("Flare to peak delays < 0:")
+        print(Flare_to_max_delays[Flare_to_max_delays<0])
+        print("SEP to peak delays < 0:")
+        print(SEP_to_max_delays[SEP_to_max_delays<0])
     
 
 
@@ -504,10 +516,11 @@ def histogram_of_delays_peak(df,event_type,Event_longitude=None,Flare_magnitude=
 
 
 df=load_generate_dataset()
-histogram_of_delays_max(df,TC_10,Event_longitude=WESTERN,Flare_magnitude=1e-5)
-histogram_of_delays_max(df,TC_30,Event_longitude=WESTERN,Flare_magnitude=1e-5)
-histogram_of_delays_max(df,TC_50,Event_longitude=WESTERN,Flare_magnitude=1e-5)
-histogram_of_delays_max(df,TC_100,Event_longitude=WESTERN,Flare_magnitude=1e-5)
+
+histogram_of_delays_max(df,TC_10,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
+histogram_of_delays_max(df,TC_30,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
+histogram_of_delays_max(df,TC_50,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
+histogram_of_delays_max(df,TC_100,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
 
 histogram_of_delays_peak(df,TC_10,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
 histogram_of_delays_peak(df,TC_30,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
