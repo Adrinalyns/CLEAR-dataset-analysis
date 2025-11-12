@@ -89,3 +89,50 @@ def calculate_flare_to_peak_delay(df):
         df[event_type + FLARE_TO_PEAK] = (pd.to_datetime(df[event_type + TIME_PEAK]) - pd.to_datetime(df[TIME_FLARE])).dt.total_seconds() / 60.0
 
     return df
+
+
+def corrects_sep_to_max_delay(df):
+    '''
+    This function compute the rise time to onset for each event in the dataframe. 
+    The rise time column already exists but contains errors.
+    The rise time to max is defined as the time between the SEP start time and the Max flux time.
+    It calculates the rise time to max only if the Max flux time and the SEP start time are defined.
+
+    Parameters:
+    -----------
+    df : panda DataFrame
+        the dataframe containing all event information
+
+    Returns:
+    --------
+    df : pandas DataFrame
+        The dataframe with the corrected column 'Rise Time to Max (minutes)' containing the rise time to max in minutes
+    '''
+    for event_type in EVENT_TYPES:
+        df[event_type + SEP_TO_MAX] = (pd.to_datetime(df[event_type + TIME_MAX]) - pd.to_datetime(df[event_type + TIME_SEP])).dt.total_seconds() / 60.0
+    return df
+
+
+def corrects_sep_to_peak_delay(df):
+    '''
+    This function compute the rise time to onset for each event in the dataframe. 
+    The rise time column already exists but contains errors.
+    The rise time to onset is defined as the time between the SEP start time and the Onset peak time.
+    It calculates the rise time to onset only if the Onset peak time and the SEP start time are defined.
+
+    Parameters:
+    -----------
+    df : panda DataFrame
+        the dataframe containing all event information
+
+    Returns:
+    --------
+    df : pandas DataFrame
+        The dataframe with the corrected column 'Rise Time to Onset (minutes)' containing the rise time to onset in minutes
+    '''
+    for event_type in EVENT_TYPES:
+        df[event_type + SEP_TO_PEAK] = (pd.to_datetime(df[event_type + TIME_PEAK]) - pd.to_datetime(df[event_type + TIME_SEP])).dt.total_seconds() / 60.0
+
+    return df
+
+
