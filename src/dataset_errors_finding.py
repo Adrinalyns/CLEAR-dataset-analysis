@@ -164,7 +164,7 @@ def test_longitude_range(df):
     print("All longitudes are within the range [-180; 180]!")
 
 
-def test_positive_SEP_to_peak_delay(df):
+def test_positive_SEP_to_peak_delay(df,print_terminal=False):
     '''
     Test the SEP to peak delay for all events, looking at all event types if they exist.
     The SEP to peak delay is defined as the time between the SEP Start Time and the Onset peak time.
@@ -172,23 +172,49 @@ def test_positive_SEP_to_peak_delay(df):
     If not it prints a message with the index and event type of the negative delays, as well as the 
     SEP start time, the Onset peak time and the calculated delay.
     '''
-    allways_positive=True
+    #Opening the debug file to write the anomalies
+    debug_file = open("debug_reports/negative_sep_to_peak_delays.txt", "w", encoding="utf-8")
+    debug_file.write("Debug report of negative SEP to peak delays\n")
+
+    always_positive=True
+
     for index,row in df.iterrows():
+        first_error=True
         #looking at all integral flux/event types
         for event_type in EVENT_TYPES:
             #Verifying that the delay exists for this event type
             if pd.notnull(row[event_type + SEP_TO_PEAK]) & (row[event_type + SEP_TO_PEAK]<0):
-                print(f"Event index {index}, starting at {row['Time Period Start']}")
-                print(f"has a negative SEP to peak delay for event type {event_type}:")
-                print(f"\t SEP start time: {row[event_type + TIME_SEP]}")
-                print(f"\t Onset peak time: {row[event_type + TIME_PEAK]}")
-                print(f"\t Calculated delay: {row[event_type + SEP_TO_PEAK]}")
-                allways_positive=False
-    assert allways_positive, "Some SEP to peak delays are negative!"
+                
+                if first_error: #Only write the event header once
+                    debug_file.write(f"\nEvent index {index}, starting at {row['Time Period Start']}:\n")
+                    if print_terminal:
+                        print(f"\nEvent index {index}, starting at {row['Time Period Start']}:")
+                    first_error = False
+
+                #Writing the anomaly in the debug file
+                debug_file.write(f"\t Event type {event_type}:\n")
+                debug_file.write(f"\t \t SEP start time: {row[event_type + TIME_SEP]}\n")
+                debug_file.write(f"\t \t Onset peak time: {row[event_type + TIME_PEAK]}\n")
+                debug_file.write(f"\t \t Calculated delay: {row[event_type + SEP_TO_PEAK]}\n \n")
+
+                if print_terminal: #Also print the anomaly in the terminal
+                    print(f"\t negative SEP to peak delay for event type {event_type}:")
+                    print(f"\t\t SEP start time: {row[event_type + TIME_SEP]}")
+                    print(f"\t\t Onset peak time: {row[event_type + TIME_PEAK]}")
+                    print(f"\t\t Calculated delay: {row[event_type + SEP_TO_PEAK]}\n")
+
+                always_positive=False
+        
+    if always_positive:
+        debug_file.write("\n \tAll CME to peak delays are positive!\n")
+
+    debug_file.close()
+
+    assert always_positive, "Some SEP to peak delays are negative!"
     print("All SEP to peak delays are positive!")
     
 
-def test_positive_CME_to_peak_delay(df):
+def test_positive_CME_to_peak_delay(df,print_terminal=False):
     '''
     Test the CME to peak delay for all events, looking at all event types if they exist.
     The CME to peak delay is defined as the time between the CME CDAW First Look Time and the Onset peak time.
@@ -196,23 +222,50 @@ def test_positive_CME_to_peak_delay(df):
     If not it prints a message with the index and event type of the negative delays, as well as the 
     CME CDAW First Look Time, the Onset peak time and the calculated delay.
     '''
-    allways_positive=True
+    #Opening the debug file to write the anomalies
+    debug_file = open("debug_reports/negative_cme_to_peak_delays.txt", "w", encoding="utf-8")
+    debug_file.write("Debug report of negative CME to peak delays\n")
+
+    always_positive=True
     for index,row in df.iterrows():
+        first_error=True
+
         #looking at all integral flux/event types
         for event_type in EVENT_TYPES:
+
             #Verifying that the delay exists for this event type
             if pd.notnull(row[event_type + CME_TO_PEAK]) & (row[event_type + CME_TO_PEAK]<0):
-                print(f"Event index {index}, starting at {row['Time Period Start']}")
-                print(f"has a negative CME to peak delay for event type {event_type}:")
-                print(f"\t CME CDAW First Look Time: {row[TIME_CME]}")
-                print(f"\t Onset peak time: {row[event_type + TIME_PEAK]}")
-                print(f"\t Calculated delay: {row[event_type + CME_TO_PEAK]}")
-                allways_positive=False
-    assert allways_positive, "Some CME to peak delays are negative!"
+
+                if first_error: #Only write the event header once
+                    debug_file.write(f"\nEvent index {index}, starting at {row['Time Period Start']}:\n")
+                    if print_terminal:
+                        print(f"\nEvent index {index}, starting at {row['Time Period Start']}:")
+                    first_error = False
+                
+                #Writing the anomaly in the debug file
+                debug_file.write(f"\t Event type {event_type}:\n")
+                debug_file.write(f"\t \t CME CDAW First Look Time: {row[TIME_CME]}\n")
+                debug_file.write(f"\t \t Onset peak time: {row[event_type + TIME_PEAK]}\n")
+                debug_file.write(f"\t \t Calculated delay: {row[event_type + CME_TO_PEAK]}\n \n")
+                
+                if print_terminal: #Also print the anomaly in the terminal
+                    print(f"\t negative SEP to peak delay for event type {event_type}:")
+                    print(f"\t\t SEP start time: {row[event_type + TIME_SEP]}")
+                    print(f"\t\t Onset peak time: {row[event_type + TIME_PEAK]}")
+                    print(f"\t\t Calculated delay: {row[event_type + SEP_TO_PEAK]}\n")
+                
+                always_positive=False
+    
+    if always_positive:
+        debug_file.write("\n \tAll CME to peak delays are positive!\n")
+    
+    debug_file.close()
+
+    assert always_positive, "Some CME to peak delays are negative!"
     print("All CME to peak delays are positive!")
 
 
-def test_positive_Flare_to_peak_delay(df):
+def test_positive_Flare_to_peak_delay(df,print_terminal=False):
     '''
     Test the Flare to peak delay for all events, looking at all event types if they exist.
     The Flare to peak delay is defined as the time between the Flare Xray Peak Time and the Onset peak time.
@@ -220,22 +273,47 @@ def test_positive_Flare_to_peak_delay(df):
     If not it prints a message with the index and event type of the negative delays, as well as the 
     Flare Xray Peak Time, the Onset peak time and the calculated delay.
     '''
-    allways_positive=True
+    #Opening the debug file to write the anomalies
+    debug_file = open("debug_reports/negative_flare_to_peak_delays.txt", "w", encoding="utf-8")
+    debug_file.write("Debug report of negative Flare to peak delays\n")
+
+    always_positive=True
+
     for index,row in df.iterrows():
+        first_error=True
         #looking at all integral flux/event types
         for event_type in EVENT_TYPES:
             #Verifying that the delay exists for this event type
             if pd.notnull(row[event_type + FLARE_TO_PEAK]) & (row[event_type + FLARE_TO_PEAK]<0):
-                print(f"Event index {index}, starting at {row['Time Period Start']}")
-                print(f"has a negative Flare to peak delay for event type {event_type}:")
-                print(f"\t Flare Xray Peak Time: {row[TIME_FLARE]}")
-                print(f"\t Onset peak time: {row[event_type + TIME_PEAK]}")
-                print(f"\t Calculated delay: {row[event_type + FLARE_TO_PEAK]}")
-                allways_positive=False
-    assert allways_positive, "Some Flare to peak delays are negative!"
+                if first_error: #Only write the event header once
+                    debug_file.write(f"\nEvent index {index}, starting at {row['Time Period Start']}:\n")
+                    if print_terminal:
+                        print(f"\nEvent index {index}, starting at {row['Time Period Start']}:")
+                    first_error = False
+                #Writing the anomaly in the debug file
+                debug_file.write(f"\t Event type {event_type}:\n")
+                debug_file.write(f"\t \t Flare Xray Peak Time: {row[TIME_FLARE]}\n")
+                debug_file.write(f"\t \t Onset peak time: {row[event_type + TIME_PEAK]}\n")
+                debug_file.write(f"\t \t Calculated delay: {row[event_type + FLARE_TO_PEAK]}\n \n")
+                
+                if print_terminal: #Also print the anomaly in the terminal
+                    print(f"\t negative Flare to peak delay for event type {event_type}:")
+                    print(f"\t\t Flare Xray Peak Time: {row[TIME_FLARE]}")
+                    print(f"\t\t Onset peak time: {row[event_type + TIME_PEAK]}")
+                    print(f"\t\t Calculated delay: {row[event_type + FLARE_TO_PEAK]}\n")
+                
+                always_positive=False
+    
+    if always_positive:
+        debug_file.write("\n \tAll Flare to peak delays are positive!\n")
+
+    debug_file.close()
+
+    assert always_positive, "Some Flare to peak delays are negative!"
     print("All Flare to peak delays are positive!")
 
-def test_positive_SEP_to_max_delay(df):
+
+def test_positive_SEP_to_max_delay(df,print_terminal=False):
     '''
     Test the SEP to max delay for all events, looking at all event types if they exist.
     The SEP to max delay is defined as the time between the SEP Start Time and the Max Flux Time time.
@@ -243,23 +321,49 @@ def test_positive_SEP_to_max_delay(df):
     If not it prints a message with the index and event type of the negative delays, as well as the 
     SEP start time, the Max Flux Time and the calculated delay.
     '''
-    allways_positive=True
+    #Opening the debug file to write the anomalies
+    debug_file = open("debug_reports/negative_sep_to_max_delays.txt", "w", encoding="utf-8")
+    debug_file.write("Debug report of negative SEP to max delays\n")
+
+    always_positive=True
+
     for index,row in df.iterrows():
+        first_error=True
         #looking at all integral flux/event types
         for event_type in EVENT_TYPES:
             #Verifying that the delay exists for this event type
             if pd.notnull(row[event_type + SEP_TO_MAX]) & (row[event_type + SEP_TO_MAX]<0):
-                print(f"Event index {index}, starting at {row['Time Period Start']}")
-                print(f"has a negative SEP to max delay for event type {event_type}:")
-                print(f"\t SEP start time: {row[event_type + TIME_SEP]}")
-                print(f"\t Max Flux Time: {row[event_type + TIME_MAX]}")
-                print(f"\t Calculated delay: {row[event_type + SEP_TO_MAX]}")
-                allways_positive=False
-    assert allways_positive, "Some SEP to max delays are negative!"
+
+                if first_error: #Only write the event header once
+                    debug_file.write(f"\nEvent index {index}, starting at {row['Time Period Start']}:\n")
+                    if print_terminal:
+                        print(f"\nEvent index {index}, starting at {row['Time Period Start']}:")
+                    first_error = False
+
+                #Writing the anomaly in the debug file
+                debug_file.write(f"\t Event type {event_type}:\n")
+                debug_file.write(f"\t \t SEP start time: {row[event_type + TIME_SEP]}\n")
+                debug_file.write(f"\t \t Max Flux Time: {   row[event_type + TIME_MAX]}\n")
+                debug_file.write(f"\t \t Calculated delay: {row[event_type + SEP_TO_MAX]}\n \n")
+                
+                if print_terminal: #Also print the anomaly in the terminal
+                    print(f"\thas a negative SEP to max delay for event type {event_type}:")
+                    print(f"\t\tSEP start time: {row[event_type + TIME_SEP]}")
+                    print(f"\t\tMax Flux Time: {row[event_type + TIME_MAX]}")
+                    print(f"\t\tCalculated delay: {row[event_type + SEP_TO_MAX]}\n")
+                    
+                    always_positive=False
+
+    if always_positive:
+        debug_file.write("\n \tAll SEP to max delays are positive!\n")
+    
+    debug_file.close()
+
+    assert always_positive, "Some SEP to max delays are negative!"
     print("All SEP to max delays are positive!")
     
 
-def test_positive_CME_to_max_delay(df):
+def test_positive_CME_to_max_delay(df,print_terminal=False):
     '''
     Test the CME to max delay for all events, looking at all event types if they exist.
     The CME to max delay is defined as the time between the CME CDAW First Look Time and the Max Flux Time time.
@@ -267,23 +371,48 @@ def test_positive_CME_to_max_delay(df):
     If not it prints a message with the index and event type of the negative delays, as well as the 
     CME CDAW First Look Time, the Max Flux Time and the calculated delay.
     '''
-    allways_positive=True
+    debug_file = open("debug_reports/negative_cme_to_max_delays.txt", "w", encoding="utf-8")
+    debug_file.write("Debug report of negative CME to max delays\n")
+
+    always_positive=True
+
     for index,row in df.iterrows():
+        first_error=True
         #looking at all integral flux/event types
         for event_type in EVENT_TYPES:
             #Verifying that the delay exists for this event type
             if pd.notnull(row[event_type + CME_TO_MAX]) & (row[event_type + CME_TO_MAX]<0):
-                print(f"Event index {index}, starting at {row['Time Period Start']}")
-                print(f"has a negative CME to max delay for event type {event_type}:")
-                print(f"\t CME CDAW First Look Time: {row[TIME_CME]}")
-                print(f"\t Max Flux Time: {row[event_type + TIME_MAX]}")
-                print(f"\t Calculated delay: {row[event_type + CME_TO_MAX]}")
-                allways_positive=False
-    assert allways_positive, "Some CME to max delays are negative!"
+
+                if first_error: #Only write the event header once
+                    debug_file.write(f"\nEvent index {index}, starting at {row['Time Period Start']}:\n")
+                    if print_terminal:
+                        print(f"\nEvent index {index}, starting at {row['Time Period Start']}:")
+                    first_error = False
+
+                #Writing the anomaly in the debug file
+                debug_file.write(f"\t Event type {event_type}:\n")         
+                debug_file.write(f"\t \t CME CDAW First Look Time: {row[TIME_CME]}\n")
+                debug_file.write(f"\t \t Max Flux Time: {row[event_type + TIME_MAX]}\n")
+                debug_file.write(f"\t \t Calculated delay: {row[event_type + CME_TO_MAX]}\n \n")
+                
+                if print_terminal: #Also print the anomaly in the terminal
+                    print(f"\thas a negative CME to max delay for event type {event_type}:")
+                    print(f"\t\tCME CDAW First Look Time: {row[TIME_CME]}")
+                    print(f"\t\tMax Flux Time: {row[event_type + TIME_MAX]}")
+                    print(f"\t\tCalculated delay: {row[event_type + CME_TO_MAX]}\n")
+
+                always_positive=False
+
+    if always_positive:
+        debug_file.write("\n \tAll CME to max delays are positive!\n")
+    
+    debug_file.close()
+
+    assert always_positive, "Some CME to max delays are negative!"
     print("All CME to max delays are positive!")
 
 
-def test_positive_Flare_to_max_delay(df):
+def test_positive_Flare_to_max_delay(df,print_terminal=False):
     '''
     Test the Flare to max delay for all events, looking at all event types if they exist.
     The Flare to max delay is defined as the time between the Flare Xray Peak Time and the Max Flux Time time.
@@ -291,19 +420,44 @@ def test_positive_Flare_to_max_delay(df):
     If not it prints a message with the index and event type of the negative delays, as well as the 
     Flare Xray Peak Time, the Max Flux Time and the calculated delay.
     '''
-    allways_positive=True
+    debug_file = open("debug_reports/negative_flare_to_max_delays.txt", "w", encoding="utf-8")
+    debug_file.write("Debug report of negative Flare to max delays\n")
+
+    always_positive=True
+
     for index,row in df.iterrows():
+        first_error=True
+
         #looking at all integral flux/event types
         for event_type in EVENT_TYPES:
             #Verifying that the delay exists for this event type
             if pd.notnull(row[event_type + FLARE_TO_MAX]) & (row[event_type + FLARE_TO_MAX]<0):
-                print(f"Event index {index}, starting at {row['Time Period Start']}")
-                print(f"has a negative Flare to max delay for event type {event_type}:")
-                print(f"\t Flare Xray Peak Time: {row[TIME_FLARE]}")
-                print(f"\t Max Flux Time: {row[event_type + TIME_MAX]}")
-                print(f"\t Calculated delay: {row[event_type + FLARE_TO_MAX]}")
-                allways_positive=False
-    assert allways_positive, "Some Flare to max delays are negative!"
-    print("All Flare to max delays are positive!")
 
+                if first_error: #Only write the event header once
+                    debug_file.write(f"\nEvent index {index}, starting at {row['Time Period Start']}:\n")
+                    if print_terminal:
+                        print(f"\nEvent index {index}, starting at {row['Time Period Start']}:")
+                    first_error = False
+                
+                #Writing the anomaly in the debug file
+                debug_file.write(f"\t Event type {event_type}:\n")
+                debug_file.write(f"\t \t Flare Xray Peak Time: {row[TIME_FLARE]}\n")
+                debug_file.write(f"\t \t Max Flux Time: {row[event_type + TIME_MAX]}\n")
+                debug_file.write(f"\t \t Calculated delay: {row[event_type + FLARE_TO_MAX]}\n \n")
+                
+                if print_terminal: #Also print the anomaly in the terminal
+                    print(f"\thas a negative Flare to max delay for event type {event_type}:")
+                    print(f"\t\tFlare Xray Peak Time: {row[TIME_FLARE]}")
+                    print(f"\t\tMax Flux Time: {row[event_type + TIME_MAX]}")
+                    print(f"\t\tCalculated delay: {row[event_type + FLARE_TO_MAX]}\n")
+
+                always_positive=False
+    
+    if always_positive:
+        debug_file.write("\n \tAll Flare to max delays are positive!\n")
+
+    debug_file.close()
+
+    assert always_positive, "Some Flare to max delays are negative!"
+    print("All Flare to max delays are positive!")
 
