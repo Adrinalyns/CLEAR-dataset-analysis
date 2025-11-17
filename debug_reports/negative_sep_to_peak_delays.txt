@@ -1,0 +1,382 @@
+Debug report of negative SEP to peak delays
+
+Event index 2, starting at 1986-02-06 07:05:00:
+	 Event type >100.0 MeV 1.0 pfu :
+	 	 SEP start time: 1986-02-06 11:25:00
+	 	 Onset peak time: 1986-02-06 10:45:00
+	 	 Calculated delay: -40.0
+ 
+
+Event index 6, starting at 1986-02-16 23:45:00:
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 1986-02-17 01:20:00
+	 	 Onset peak time: 1986-02-17 00:40:00
+	 	 Calculated delay: -40.0
+ 
+
+Event index 14, starting at 1988-06-30 09:15:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 1988-06-30 11:25:00
+	 	 Onset peak time: 1988-06-30 10:20:00
+	 	 Calculated delay: -65.00000000000001
+ 
+
+Event index 27, starting at 1988-12-16 09:10:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 1988-12-18 01:30:00
+	 	 Onset peak time: 1988-12-16 22:35:00
+	 	 Calculated delay: -1615.0
+ 
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 1988-12-16 13:50:00
+	 	 Onset peak time: 1988-12-16 12:10:00
+	 	 Calculated delay: -100.0
+ 
+	 Event type >50.0 MeV 1.0 pfu :
+	 	 SEP start time: 1988-12-16 15:00:00
+	 	 Onset peak time: 1988-12-16 12:10:00
+	 	 Calculated delay: -170.0
+ 
+
+Event index 38, starting at 1989-04-21 14:00:00:
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 1989-04-23 07:15:00
+	 	 Onset peak time: 1989-04-23 06:55:00
+	 	 Calculated delay: -20.0
+ 
+
+Event index 81, starting at 1990-04-11 07:05:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 1990-04-11 21:20:00
+	 	 Onset peak time: 1990-04-11 19:20:00
+	 	 Calculated delay: -120.0
+ 
+
+Event index 122, starting at 1991-06-02 15:25:00:
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 1991-06-02 17:55:00
+	 	 Onset peak time: 1991-06-02 17:00:00
+	 	 Calculated delay: -55.0
+ 
+
+Event index 129, starting at 1991-08-24 18:45:00:
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 1991-08-26 22:40:00
+	 	 Onset peak time: 1991-08-25 17:30:00
+	 	 Calculated delay: -1750.0
+ 
+
+Event index 164, starting at 1993-05-14 00:55:00:
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 1993-05-15 01:30:00
+	 	 Onset peak time: 1993-05-14 23:05:00
+	 	 Calculated delay: -145.0
+ 
+
+Event index 172, starting at 1995-10-19 07:00:00:
+	 Event type >50.0 MeV 1.0 pfu :
+	 	 SEP start time: 1995-10-20 08:00:00
+	 	 Onset peak time: 1995-10-20 05:30:00
+	 	 Calculated delay: -150.0
+ 
+
+Event index 193, starting at 1998-11-05 04:20:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 1998-11-08 02:45:00
+	 	 Onset peak time: 1998-11-06 07:45:00
+	 	 Calculated delay: -2580.0
+ 
+
+Event index 197, starting at 1999-01-20 00:00:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 1999-01-23 11:05:00
+	 	 Onset peak time: 1999-01-22 13:45:00
+	 	 Calculated delay: -1280.0
+ 
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 1999-01-21 19:25:00
+	 	 Onset peak time: 1999-01-21 12:00:00
+	 	 Calculated delay: -445.0
+ 
+
+Event index 236, starting at 2000-11-24 15:05:00:
+	 Event type >100.0 MeV 1.0 pfu :
+	 	 SEP start time: 2000-11-24 17:20:00
+	 	 Onset peak time: 2000-11-24 16:15:00
+	 	 Calculated delay: -65.00000000000001
+ 
+
+Event index 237, starting at 2000-11-25 15:40:00:
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 2000-11-25 15:55:00
+	 	 Onset peak time: 2000-11-25 15:40:00
+	 	 Calculated delay: -15.0
+ 
+
+Event index 248, starting at 2001-04-09 15:50:00:
+	 Event type >50.0 MeV 1.0 pfu :
+	 	 SEP start time: 2001-04-09 19:25:00
+	 	 Onset peak time: 2001-04-09 18:10:00
+	 	 Calculated delay: -75.0
+ 
+
+Event index 250, starting at 2001-04-12 11:30:00:
+	 Event type >100.0 MeV 1.0 pfu :
+	 	 SEP start time: 2001-04-12 13:05:00
+	 	 Onset peak time: 2001-04-12 12:25:00
+	 	 Calculated delay: -40.0
+ 
+
+Event index 253, starting at 2001-04-26 00:00:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 2001-04-28 04:30:00
+	 	 Onset peak time: 2001-04-27 08:10:00
+	 	 Calculated delay: -1220.0
+ 
+
+Event index 266, starting at 2001-10-19 17:30:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 2001-10-19 22:25:00
+	 	 Onset peak time: 2001-10-19 19:10:00
+	 	 Calculated delay: -195.0
+ 
+
+Event index 275, starting at 2001-12-30 01:05:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 2001-12-30 02:40:00
+	 	 Onset peak time: 2001-12-30 02:25:00
+	 	 Calculated delay: -15.0
+ 
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 2001-12-30 07:55:00
+	 	 Onset peak time: 2001-12-30 07:45:00
+	 	 Calculated delay: -10.0
+ 
+
+Event index 277, starting at 2002-01-14 06:10:00:
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 2002-01-15 07:10:00
+	 	 Onset peak time: 2002-01-14 17:35:00
+	 	 Calculated delay: -815.0
+ 
+
+Event index 280, starting at 2002-03-15 06:25:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 2002-03-17 08:20:00
+	 	 Onset peak time: 2002-03-16 09:25:00
+	 	 Calculated delay: -1375.0
+ 
+
+Event index 284, starting at 2002-03-22 13:20:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 2002-03-22 20:20:00
+	 	 Onset peak time: 2002-03-22 19:45:00
+	 	 Calculated delay: -35.0
+ 
+
+Event index 292, starting at 2002-07-19 01:40:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 2002-07-19 10:50:00
+	 	 Onset peak time: 2002-07-19 09:05:00
+	 	 Calculated delay: -105.0
+ 
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 2002-07-19 08:30:00
+	 	 Onset peak time: 2002-07-19 06:30:00
+	 	 Calculated delay: -120.0
+ 
+
+Event index 307, starting at 2003-05-27 05:30:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 2003-05-28 23:40:00
+	 	 Onset peak time: 2003-05-28 20:45:00
+	 	 Calculated delay: -175.0
+ 
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 2003-05-28 16:35:00
+	 	 Onset peak time: 2003-05-28 16:05:00
+	 	 Calculated delay: -30.0
+ 
+
+Event index 315, starting at 2003-11-04 21:00:00:
+	 Event type >100.0 MeV 1.0 pfu :
+	 	 SEP start time: 2003-11-05 05:35:00
+	 	 Onset peak time: 2003-11-05 01:25:00
+	 	 Calculated delay: -250.00000000000003
+ 
+
+Event index 317, starting at 2003-11-21 15:20:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 2003-11-21 23:55:00
+	 	 Onset peak time: 2003-11-21 18:40:00
+	 	 Calculated delay: -315.0
+ 
+
+Event index 318, starting at 2004-04-10 06:05:00:
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 2004-04-11 10:20:00
+	 	 Onset peak time: 2004-04-11 09:35:00
+	 	 Calculated delay: -45.0
+ 
+
+Event index 354, starting at 2006-12-04 15:55:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 2006-12-06 15:55:00
+	 	 Onset peak time: 2006-12-05 18:15:00
+	 	 Calculated delay: -1300.0
+ 
+
+Event index 366, starting at 2011-06-05 12:10:00:
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 2011-06-06 04:15:00
+	 	 Onset peak time: 2011-06-06 02:20:00
+	 	 Calculated delay: -115.0
+ 
+
+Event index 376, starting at 2011-09-06 23:05:00:
+	 Event type >50.0 MeV 1.0 pfu :
+	 	 SEP start time: 2011-09-07 03:40:00
+	 	 Onset peak time: 2011-09-07 02:10:00
+	 	 Calculated delay: -90.0
+ 
+
+Event index 377, starting at 2011-09-21 17:55:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 2011-09-23 23:25:00
+	 	 Onset peak time: 2011-09-23 21:05:00
+	 	 Calculated delay: -140.0
+ 
+
+Event index 395, starting at 2012-07-08 18:10:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 2012-07-09 01:30:00
+	 	 Onset peak time: 2012-07-09 00:35:00
+	 	 Calculated delay: -55.0
+ 
+
+Event index 399, starting at 2012-07-23 07:10:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 2012-07-23 15:45:00
+	 	 Onset peak time: 2012-07-23 12:15:00
+	 	 Calculated delay: -210.0
+ 
+
+Event index 408, starting at 2013-03-14 19:40:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 2013-03-16 19:40:00
+	 	 Onset peak time: 2013-03-16 19:05:00
+	 	 Calculated delay: -35.0
+ 
+
+Event index 415, starting at 2013-06-23 07:20:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 2013-06-23 20:10:00
+	 	 Onset peak time: 2013-06-23 18:45:00
+	 	 Calculated delay: -85.0
+ 
+
+Event index 422, starting at 2013-11-02 07:20:00:
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 2013-11-02 14:50:00
+	 	 Onset peak time: 2013-11-02 12:45:00
+	 	 Calculated delay: -125.00000000000001
+ 
+
+Event index 427, starting at 2013-12-28 18:50:00:
+	 Event type >50.0 MeV 1.0 pfu :
+	 	 SEP start time: 2013-12-28 20:35:00
+	 	 Onset peak time: 2013-12-28 20:20:00
+	 	 Calculated delay: -15.0
+ 
+
+Event index 455, starting at 2015-06-17 04:15:00:
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 2015-06-18 12:15:00
+	 	 Onset peak time: 2015-06-18 08:25:00
+	 	 Calculated delay: -230.0
+ 
+
+Event index 458, starting at 2015-06-25 09:15:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 2015-06-26 02:30:00
+	 	 Onset peak time: 2015-06-25 21:25:00
+	 	 Calculated delay: -305.0
+ 
+
+Event index 471, starting at 2017-09-03 22:00:00:
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 2017-09-05 04:30:00
+	 	 Onset peak time: 2017-09-05 02:40:00
+	 	 Calculated delay: -110.0
+ 
+
+Event index 487, starting at 2022-03-30 16:55:00:
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 2022-03-31 00:30:00
+	 	 Onset peak time: 2022-03-30 23:55:00
+	 	 Calculated delay: -35.0
+ 
+	 Event type >50.0 MeV 1.0 pfu :
+	 	 SEP start time: 2022-03-31 05:45:00
+	 	 Onset peak time: 2022-03-30 21:00:00
+	 	 Calculated delay: -525.0000000000001
+ 
+
+Event index 493, starting at 2022-08-26 05:55:00:
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 2022-08-27 13:40:00
+	 	 Onset peak time: 2022-08-27 10:05:00
+	 	 Calculated delay: -215.0
+ 
+
+Event index 503, starting at 2023-04-21 01:40:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 2023-04-23 18:15:00
+	 	 Onset peak time: 2023-04-22 09:15:00
+	 	 Calculated delay: -1980.0000000000002
+ 
+
+Event index 511, starting at 2023-07-17 23:55:00:
+	 Event type >50.0 MeV 1.0 pfu :
+	 	 SEP start time: 2023-07-18 01:45:00
+	 	 Onset peak time: 2023-07-18 01:20:00
+	 	 Calculated delay: -25.0
+ 
+
+Event index 524, starting at 2023-12-13 19:10:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 2023-12-15 23:45:00
+	 	 Onset peak time: 2023-12-15 04:15:00
+	 	 Calculated delay: -1170.0
+ 
+
+Event index 542, starting at 2024-06-12 00:15:00:
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 2024-06-12 03:00:00
+	 	 Onset peak time: 2024-06-12 02:05:00
+	 	 Calculated delay: -55.0
+ 
+
+Event index 548, starting at 2024-09-14 15:40:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 2024-09-17 07:35:00
+	 	 Onset peak time: 2024-09-14 19:10:00
+	 	 Calculated delay: -3625.0
+ 
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 2024-09-15 06:40:00
+	 	 Onset peak time: 2024-09-14 20:35:00
+	 	 Calculated delay: -605.0
+ 
+
+Event index 551, starting at 2024-10-21 00:00:00:
+	 Event type >10.0 MeV 10.0 pfu :
+	 	 SEP start time: 2024-10-26 19:10:00
+	 	 Onset peak time: 2024-10-26 16:35:00
+	 	 Calculated delay: -155.0
+ 
+	 Event type >30.0 MeV 1.0 pfu :
+	 	 SEP start time: 2024-10-26 16:25:00
+	 	 Onset peak time: 2024-10-26 14:35:00
+	 	 Calculated delay: -110.0
+ 

@@ -1,0 +1,189 @@
+Debug report of negative CME to max delays
+
+Event index 232, starting at 2000-10-24 13:05:00:
+	 Event type >100.0 MeV 1.0 pfu :
+	 	 CME CDAW First Look Time: 2000-10-25 08:26:00
+	 	 Max Flux Time: 2000-10-25 04:00:00
+	 	 Calculated delay: -266.00000000000006
+ 
+	 Event type >100.0 MeV 1e-06 pfu :
+	 	 CME CDAW First Look Time: 2000-10-25 08:26:00
+	 	 Max Flux Time: 2000-10-25 04:00:00
+	 	 Calculated delay: -266.00000000000006
+ 
+
+Event index 286, starting at 2002-04-16 11:15:00:
+	 Event type >100.0 MeV 1.0 pfu :
+	 	 CME CDAW First Look Time: 2002-04-17 08:26:00
+	 	 Max Flux Time: 2002-04-16 12:15:00
+	 	 Calculated delay: -1211.0
+ 
+	 Event type >100.0 MeV 1e-06 pfu :
+	 	 CME CDAW First Look Time: 2002-04-17 08:26:00
+	 	 Max Flux Time: 2002-04-16 12:15:00
+	 	 Calculated delay: -1211.0
+ 
+
+Event index 361, starting at 2010-08-17 07:55:00:
+	 Event type >100.0 MeV 1.0 pfu :
+	 	 CME CDAW First Look Time: 2010-08-18 05:48:00
+	 	 Max Flux Time: 2010-08-17 16:20:00
+	 	 Calculated delay: -808.0
+ 
+	 Event type >100.0 MeV 1e-06 pfu :
+	 	 CME CDAW First Look Time: 2010-08-18 05:48:00
+	 	 Max Flux Time: 2010-08-17 16:20:00
+	 	 Calculated delay: -808.0
+ 
+
+Event index 381, starting at 2011-12-24 20:00:00:
+	 Event type >100.0 MeV 1.0 pfu :
+	 	 CME CDAW First Look Time: 2011-12-25 18:48:00
+	 	 Max Flux Time: 2011-12-25 14:50:00
+	 	 Calculated delay: -238.0
+ 
+	 Event type >100.0 MeV 1e-06 pfu :
+	 	 CME CDAW First Look Time: 2011-12-25 18:48:00
+	 	 Max Flux Time: 2011-12-25 14:50:00
+	 	 Calculated delay: -238.0
+ 
+
+Event index 392, starting at 2012-05-25 23:05:00:
+	 Event type >100.0 MeV 1.0 pfu :
+	 	 CME CDAW First Look Time: 2012-05-26 20:57:00
+	 	 Max Flux Time: 2012-05-26 12:50:00
+	 	 Calculated delay: -487.00000000000006
+ 
+	 Event type >100.0 MeV 1e-06 pfu :
+	 	 CME CDAW First Look Time: 2012-05-26 20:57:00
+	 	 Max Flux Time: 2012-05-26 12:50:00
+	 	 Calculated delay: -487.00000000000006
+ 
+
+Event index 400, starting at 2012-08-31 01:25:00:
+	 Event type >100.0 MeV 1.0 pfu :
+	 	 CME CDAW First Look Time: 2012-08-31 20:00:00
+	 	 Max Flux Time: 2012-08-31 08:50:00
+	 	 Calculated delay: -670.0
+ 
+	 Event type >100.0 MeV 1e-06 pfu :
+	 	 CME CDAW First Look Time: 2012-08-31 20:00:00
+	 	 Max Flux Time: 2012-08-31 08:50:00
+	 	 Calculated delay: -670.0
+ 
+
+Event index 445, starting at 2014-10-31 15:10:00:
+	 Event type >100.0 MeV 1.0 pfu :
+	 	 CME CDAW First Look Time: 2014-11-01 05:00:00
+	 	 Max Flux Time: 2014-10-31 16:45:00
+	 	 Calculated delay: -735.0
+ 
+	 Event type >100.0 MeV 1e-06 pfu :
+	 	 CME CDAW First Look Time: 2014-11-01 05:00:00
+	 	 Max Flux Time: 2014-10-31 16:45:00
+	 	 Calculated delay: -735.0
+ 
+
+Event index 468, starting at 2016-05-14 18:05:00:
+	 Event type >100.0 MeV 1.0 pfu :
+	 	 CME CDAW First Look Time: 2016-05-15 15:12:00
+	 	 Max Flux Time: 2016-05-14 21:45:00
+	 	 Calculated delay: -1047.0000000000002
+ 
+	 Event type >100.0 MeV 1e-06 pfu :
+	 	 CME CDAW First Look Time: 2016-05-15 15:12:00
+	 	 Max Flux Time: 2016-05-14 21:45:00
+	 	 Calculated delay: -1047.0000000000002
+ 
+
+Event index 492, starting at 2022-07-08 14:50:00:
+	 Event type >100.0 MeV 1.0 pfu :
+	 	 CME CDAW First Look Time: 2022-07-09 13:48:00
+	 	 Max Flux Time: 2022-07-08 22:05:00
+	 	 Calculated delay: -943.0
+ 
+	 Event type >100.0 MeV 1e-06 pfu :
+	 	 CME CDAW First Look Time: 2022-07-09 13:48:00
+	 	 Max Flux Time: 2022-07-08 22:05:00
+	 	 Calculated delay: -943.0
+ 
+
+Event index 493, starting at 2022-08-26 05:55:00:
+	 Event type >100.0 MeV 1.0 pfu :
+	 	 CME CDAW First Look Time: 2022-08-27 02:24:00
+	 	 Max Flux Time: 2022-08-26 06:35:00
+	 	 Calculated delay: -1189.0
+ 
+	 Event type >100.0 MeV 1e-06 pfu :
+	 	 CME CDAW First Look Time: 2022-08-27 02:24:00
+	 	 Max Flux Time: 2022-08-26 06:35:00
+	 	 Calculated delay: -1189.0
+ 
+
+Event index 503, starting at 2023-04-21 01:40:00:
+	 Event type >100.0 MeV 1.0 pfu :
+	 	 CME CDAW First Look Time: 2023-04-21 18:12:00
+	 	 Max Flux Time: 2023-04-21 07:50:00
+	 	 Calculated delay: -622.0
+ 
+	 Event type >100.0 MeV 1e-06 pfu :
+	 	 CME CDAW First Look Time: 2023-04-21 18:12:00
+	 	 Max Flux Time: 2023-04-21 07:50:00
+	 	 Calculated delay: -622.0
+ 
+
+Event index 504, starting at 2023-05-07 01:20:00:
+	 Event type >50.0 MeV 1.0 pfu :
+	 	 CME CDAW First Look Time: 2023-05-07 23:12:00
+	 	 Max Flux Time: 2023-05-07 10:50:00
+	 	 Calculated delay: -742.0
+ 
+	 Event type >100.0 MeV 1.0 pfu :
+	 	 CME CDAW First Look Time: 2023-05-07 23:12:00
+	 	 Max Flux Time: 2023-05-07 10:50:00
+	 	 Calculated delay: -742.0
+ 
+	 Event type >50.0 MeV 1e-06 pfu :
+	 	 CME CDAW First Look Time: 2023-05-07 23:12:00
+	 	 Max Flux Time: 2023-05-07 10:50:00
+	 	 Calculated delay: -742.0
+ 
+	 Event type >100.0 MeV 1e-06 pfu :
+	 	 CME CDAW First Look Time: 2023-05-07 23:12:00
+	 	 Max Flux Time: 2023-05-07 10:50:00
+	 	 Calculated delay: -742.0
+ 
+
+Event index 506, starting at 2023-05-12 23:40:00:
+	 Event type >100.0 MeV 1.0 pfu :
+	 	 CME CDAW First Look Time: 2023-05-16 17:36:00
+	 	 Max Flux Time: 2023-05-16 10:05:00
+	 	 Calculated delay: -451.0
+ 
+	 Event type >100.0 MeV 1e-06 pfu :
+	 	 CME CDAW First Look Time: 2023-05-16 17:36:00
+	 	 Max Flux Time: 2023-05-16 10:05:00
+	 	 Calculated delay: -451.0
+ 
+
+Event index 549, starting at 2024-10-06 23:20:00:
+	 Event type >50.0 MeV 1.0 pfu :
+	 	 CME CDAW First Look Time: 2024-10-07 20:12:00
+	 	 Max Flux Time: 2024-10-06 23:20:00
+	 	 Calculated delay: -1252.0
+ 
+	 Event type >100.0 MeV 1.0 pfu :
+	 	 CME CDAW First Look Time: 2024-10-07 20:12:00
+	 	 Max Flux Time: 2024-10-06 23:20:00
+	 	 Calculated delay: -1252.0
+ 
+	 Event type >50.0 MeV 1e-06 pfu :
+	 	 CME CDAW First Look Time: 2024-10-07 20:12:00
+	 	 Max Flux Time: 2024-10-06 23:20:00
+	 	 Calculated delay: -1252.0
+ 
+	 Event type >100.0 MeV 1e-06 pfu :
+	 	 CME CDAW First Look Time: 2024-10-07 20:12:00
+	 	 Max Flux Time: 2024-10-06 23:20:00
+	 	 Calculated delay: -1252.0
+ 

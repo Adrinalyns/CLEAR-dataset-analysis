@@ -1,0 +1,3 @@
+Debug report of negative SEP to max delays
+
+ 	All SEP to max delays are positive!
