@@ -8,6 +8,7 @@
 # Document files
 *.docx
 *.pdf
+*.txt
 
 # Visual Studio Code settings
 .vscode/
