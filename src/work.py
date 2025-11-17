@@ -360,8 +360,6 @@ def prepare_dataframe():
     df=corrects_sep_to_peak_delay(df)
     
     return df
-
-
  
 
 def load_generate_dataset(force=False):
@@ -381,7 +379,6 @@ def load_generate_dataset(force=False):
         df.to_pickle(DATA_PATH)
         print("Dataset saved in", DATA_PATH)
         return df
-
 
 
 def histogram_of_delays_max(df,event_type,Event_longitude=None,Flare_magnitude=None,CDAW_speed=None,DONKI_speed=None,debug=False):
@@ -517,15 +514,16 @@ def histogram_of_delays_peak(df,event_type,Event_longitude=None,Flare_magnitude=
 
 df=load_generate_dataset()
 
-histogram_of_delays_max(df,TC_10,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
-histogram_of_delays_max(df,TC_30,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
-histogram_of_delays_max(df,TC_50,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
-histogram_of_delays_max(df,TC_100,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
+def main():
+    histogram_of_delays_max(df,TC_10,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
+    histogram_of_delays_max(df,TC_30,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
+    histogram_of_delays_max(df,TC_50,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
+    histogram_of_delays_max(df,TC_100,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
 
-histogram_of_delays_peak(df,TC_10,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
-histogram_of_delays_peak(df,TC_30,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
-histogram_of_delays_peak(df,TC_50,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
-histogram_of_delays_peak(df,TC_100,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
+    histogram_of_delays_peak(df,TC_10,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
+    histogram_of_delays_peak(df,TC_30,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
+    histogram_of_delays_peak(df,TC_50,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
+    histogram_of_delays_peak(df,TC_100,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
 
 
 
