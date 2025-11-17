@@ -1,3 +1,0 @@
-Debug report of negative CME to peak delays
-
- 	All CME to peak delays are positive!
