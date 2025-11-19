@@ -461,3 +461,48 @@ def test_positive_Flare_to_max_delay(df,print_terminal=False):
     assert always_positive, "Some Flare to max delays are negative!"
     print("All Flare to max delays are positive!")
 
+
+def print_value_for_each_event_type(df,column_name):
+    '''
+    Print the values of a given column for each event type in all events.
+    
+    Parameters:
+    -----------
+    df : panda DataFrame
+        the dataframe containing all event information
+    column_name : str
+        the name of the column to test
+    '''
+    for index,row in df.iterrows():
+        print(f"Testing index {index}...")
+        values=[]
+        for event_type in EVENT_TYPES:
+            #if pd.notnull(row[event_type + column_name]):
+            values.append(row[event_type + column_name])
+        print(f'{values[0]}, {values[4]}, \n{values[1]}, {values[5]}, \n{values[2]}, {values[6]}, \n{values[3]}, {values[7]}')
+        #assert len(values)<=1, f"Column {column_name} has different values for event index {index}: {values}"
+
+
+def print_differences_btwn_TC_AB(df,column_name):
+    '''
+    Print when a given "column"/value has different values for TC and AB event types in all events.
+    
+    Parameters:
+    -----------
+    df : panda DataFrame
+        the dataframe containing all event information
+    column_name : str
+        the name of the column to test
+    '''
+    for index,row in df.iterrows():
+        print(f"Testing index {index}...")
+        values=[]
+        if (row[TC_10 + column_name] != row[AB_10 + column_name]) & (pd.notnull(row[TC_10 + column_name]) | pd.notnull(row[AB_10 + column_name])):
+            print(f"\t10 MeV : {row[TC_10 + column_name]} vs {row[AB_10 + column_name]}")
+        if (row[TC_30 + column_name] != row[AB_30 + column_name]) & (pd.notnull(row[TC_30 + column_name]) | pd.notnull(row[AB_30 + column_name])):
+            print(f"\t30 MeV : {row[TC_30 + column_name]} vs {row[AB_30 + column_name]}")
+        if (row[TC_50 + column_name] != row[AB_50 + column_name]) & (pd.notnull(row[TC_50 + column_name]) | pd.notnull(row[AB_50 + column_name])):
+            print(f"\t50 MeV : {row[TC_50 + column_name]} vs {row[AB_50 + column_name]}")
+        if (row[TC_100 + column_name] != row[AB_100 + column_name]) & (pd.notnull(row[TC_100 + column_name]) | pd.notnull(row[AB_100 + column_name])):
+            print(f"\t100 MeV : {row[TC_100 + column_name]} vs {row[AB_100 + column_name]}")
+        #assert len(values)<=1, f"Column {column_name} has different values for event index {index}: {values}"
