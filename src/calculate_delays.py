@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import pandas as pd
+import numpy as np
 
 from constants import TC_10, TC_30, TC_50, TC_100, AB_10, AB_30, AB_50, AB_100, EVENT_TYPES
 from constants import TIME_FLARE, TIME_CME, TIME_PEAK, TIME_MAX, TIME_SEP
@@ -11,6 +12,7 @@ def calculate_flare_to_max_delay(df):
     '''
     This function compute the delay between the Flare time and the Max Flux time for each event in the dataframe.
     It calculates the delay only if the Max Flux time and the Flare time are defined.
+    It only calculate the delay for real events ie event whose TIME_SEP is defined.
 
     Parameters:
     -----------
@@ -23,7 +25,9 @@ def calculate_flare_to_max_delay(df):
         The dataframe with an additional column 'Flare Time to Max (minutes)' containing the delay in minutes
     '''
     for event_type in EVENT_TYPES:
-        df[event_type + FLARE_TO_MAX] = (pd.to_datetime(df[event_type + TIME_MAX]) - pd.to_datetime(df[TIME_FLARE])).dt.total_seconds() / 60.0
+        df[event_type + FLARE_TO_MAX] = np.nan  # Initialize the column with NaN values
+        df.loc[ df[event_type + TIME_SEP].notnull(), event_type + FLARE_TO_MAX] = \
+            (pd.to_datetime(df[event_type + TIME_MAX]) - pd.to_datetime(df[TIME_FLARE])).dt.total_seconds() / 60.0
 
     return df
 
