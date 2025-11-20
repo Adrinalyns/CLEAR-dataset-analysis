@@ -29,20 +29,23 @@ def test_flare_to_peak_delay(df):
 
         #looking at all integral flux/event types
         for event_type in EVENT_TYPES:
-
+            print(f"\t Testing event type {event_type}...")
             #Verifying that the Onset peak time exists for this event type
             if pd.notnull(row[event_type + TIME_PEAK] ) & pd.notnull(row[TIME_FLARE]):
-                print(f"\t Testing event type {event_type}...")
-                #Calculating the flare to peak delay (subtracting the Flare Time to the Onset peak time)
-                flare_to_peak_delay_calculated=(pd.to_datetime(row[event_type + TIME_PEAK]) - pd.to_datetime(row[TIME_FLARE])).total_seconds() / 60.0
-                #Checking if the calculated flare to peak delay matches the value in the dataframe
-                assert np.isclose(flare_to_peak_delay_calculated, row[event_type + 'Flare Time to Onset (minutes)']), f"Flare to Onset delay test failed for index {index} and event type {event_type}"
+
+                if pd.isnull(row[event_type + TIME_SEP]):
+                    assert pd.isnull(row[event_type + FLARE_TO_PEAK]), f"Flare to Onset delay test failed for index {index} and event type {event_type} because the delay was calculated (not null) whileTIME_SEP is null (a non-event)."
+                else:
+                    #Calculating the flare to peak delay (subtracting the Flare Time to the Onset peak time)
+                    flare_to_peak_delay_calculated=(pd.to_datetime(row[event_type + TIME_PEAK]) - pd.to_datetime(row[TIME_FLARE])).total_seconds() / 60.0
+                    #Checking if the calculated flare to peak delay matches the value in the dataframe
+                    assert np.isclose(flare_to_peak_delay_calculated, row[event_type + 'Flare Time to Onset (minutes)']), f"Flare to Onset delay test failed for index {index} and event type {event_type}, because the delay value is not correct."
                 
-                k+=1 # +1 existing and is accurate value in '*** Flare Time to Onset (minutes)'
+                    k+=1 # +1 existing and is accurate value in '*** Flare Time to Onset (minutes)'
             
             else:
                 #If the Onset peak time or the Flare peak time is not defined, the delay should be NaN
-                assert pd.isnull(row[event_type + FLARE_TO_PEAK]), f"Flare to Peak delay test failed for index {index} and event type {event_type}"
+                assert pd.isnull(row[event_type + FLARE_TO_PEAK]), f"Flare to Peak delay test failed for index {index} and event type {event_type} because the delay was calculated (not null) while one of the times is null."
     print("All tests passed!")
 
     print(f"Number of non-null values in '*** Flare Time to Onset (minutes)': {k}")
@@ -148,17 +151,21 @@ def test_flare_to_max_delay(df):
 
         #looking at all integral flux/event types
         for event_type in EVENT_TYPES:
+            print(f"\t Testing event type {event_type}...")
 
             #Verifying that the Max flux time exists for this event type
             if pd.notnull(row[event_type + TIME_MAX] ) & pd.notnull(row[TIME_FLARE]):
-                print(f"\t Testing event type {event_type}...")
-                #Calculating the flare to max delay (subtracting the Flare Time to the Max flux time)
-                flare_to_max_delay_calculated=(pd.to_datetime(row[event_type + TIME_MAX]) - pd.to_datetime(row[TIME_FLARE])).total_seconds() / 60.0
+
+                if pd.isnull(row[event_type + TIME_SEP]):
+                    assert pd.isnull(row[event_type + FLARE_TO_MAX]), f"Flare to Max delay test failed for index {index} and event type {event_type} because the delay was calculated (not null) while TIME_SEP is null (a non-event)."
+                else:
+                    #Calculating the flare to max delay (subtracting the Flare Time to the Max flux time)
+                    flare_to_max_delay_calculated=(pd.to_datetime(row[event_type + TIME_MAX]) - pd.to_datetime(row[TIME_FLARE])).total_seconds() / 60.0
                 
-                #Checking if the calculated flare to max delay matches the value in the dataframe
-                assert np.isclose(flare_to_max_delay_calculated, row[event_type + 'Flare Time to Max (minutes)']), f"Flare to Max delay test failed for index {index} and event type {event_type}"
+                    #Checking if the calculated flare to max delay matches the value in the dataframe
+                    assert np.isclose(flare_to_max_delay_calculated, row[event_type + 'Flare Time to Max (minutes)']), f"Flare to Max delay test failed for index {index} and event type {event_type}"
                 
-                k+=1 # +1 existing and is accurate value in '*** Flare Time to Max (minutes)'
+                    k+=1 # +1 existing and is accurate value in '*** Flare Time to Max (minutes)'
 
             else:
                 #If the Max flux time or the Flare time is not defined, the delay should be NaN
