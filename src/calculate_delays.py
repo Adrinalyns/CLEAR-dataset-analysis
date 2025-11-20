@@ -48,8 +48,9 @@ def calculate_CME_to_max_delay(df):
         The dataframe with an additional column 'CME Time to Max (minutes)' containing the delay in minutes
     '''
     for event_type in EVENT_TYPES:
-        df[event_type + CME_TO_MAX] = (pd.to_datetime(df[event_type + TIME_MAX]) - pd.to_datetime(df[TIME_CME])).dt.total_seconds() / 60.0
-
+        df[event_type + CME_TO_MAX] = np.nan  # Initialize the column with NaN values
+        df.loc[ df[event_type + TIME_SEP].notnull(), event_type + CME_TO_MAX] = \
+            (pd.to_datetime(df[event_type + TIME_MAX]) - pd.to_datetime(df[TIME_CME])).dt.total_seconds() / 60.0
     return df
 
 
@@ -69,8 +70,9 @@ def calculate_CME_to_peak_delay(df):
         The dataframe with an additional column 'CME Time to Onset (minutes)' containing the delay in minutes
     '''
     for event_type in EVENT_TYPES:
-        df[event_type + CME_TO_PEAK] = (pd.to_datetime(df[event_type + TIME_PEAK]) - pd.to_datetime(df[TIME_CME])).dt.total_seconds() / 60.0
-
+        df[event_type + CME_TO_PEAK] = np.nan  # Initialize the column with NaN values
+        df.loc[ df[event_type + TIME_SEP].notnull(), event_type + CME_TO_PEAK] = \
+            (pd.to_datetime(df[event_type + TIME_PEAK]) - pd.to_datetime(df[TIME_CME])).dt.total_seconds() / 60.0
     return df
 
 
@@ -90,8 +92,9 @@ def calculate_flare_to_peak_delay(df):
         The dataframe with an additional column 'Flare Time to Onset (minutes)' containing the delay in minutes
     '''
     for event_type in EVENT_TYPES:
-        df[event_type + FLARE_TO_PEAK] = (pd.to_datetime(df[event_type + TIME_PEAK]) - pd.to_datetime(df[TIME_FLARE])).dt.total_seconds() / 60.0
-
+        df[event_type + FLARE_TO_PEAK] = np.nan  # Initialize the column with NaN values
+        df.loc[ df[event_type + TIME_SEP].notnull(), event_type + FLARE_TO_PEAK] = \
+            (pd.to_datetime(df[event_type + TIME_PEAK]) - pd.to_datetime(df[TIME_FLARE])).dt.total_seconds() / 60.0
     return df
 
 
