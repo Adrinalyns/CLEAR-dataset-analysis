@@ -139,17 +139,37 @@ def plot_flux_time_series(file_path,event,event_type):
     ax.set_yscale('log')
     ax.set_xlabel('Time (Date)')
     ax.set_ylabel('Flux (pfu)')
-    ax.set_title(f'Differential Flux for SEP Event:\n{event_type}')
+    ax.set_title(f'Event nb {event.name} \nDifferential Flux:\n{event_type}')
     ax.grid(True, which="both", ls="--")
 
     #Plot the max peak and onset peak
 
-    OnseTIME_PEAK_time=pd.to_datetime(event[event_type + 'Onset Peak Time'])
-    Max_flux_time=pd.to_datetime(event[event_type + 'Max Flux Time'])
+    if pd.notnull(event[event_type + 'Max Flux Time']):
+        Max_flux_time=pd.to_datetime(event[event_type + 'Max Flux Time'])
+        Max_flux=(event[event_type + 'Max Flux (pfu)'])
+        ax.axvline(Max_flux_time, color='red', linestyle='--', label='Max Flux Time')
+        ax.plot(Max_flux_time, Max_flux, 'ro',markersize=10)  # Mark the max flux point
 
-    ax.axvline(OnseTIME_PEAK_time, color='orange', linestyle='--', label='Onset Peak Time')
-    ax.axvline(Max_flux_time, color='red', linestyle='--', label='Max Flux Time')
+    if pd.notnull(event[event_type + 'Onset Peak Time']):
+        Onset_peak_time=pd.to_datetime(event[event_type + 'Onset Peak Time'])
+        Onset_peak_flux=(event[event_type + 'Onset Peak (pfu)'])
+        ax.axvline(Onset_peak_time, color='orange', linestyle='--', label='Onset Peak Time')
+        ax.plot(Onset_peak_time, Onset_peak_flux, 'o', color='orange', markersize=10)  # Mark the onset peak point
+        
+    if pd.notnull(event[event_type + 'SEP Start Time']):
+        SEP_start_time=pd.to_datetime(event[event_type + 'SEP Start Time'])
+        ax.axvline(SEP_start_time, color='green', linestyle='--', label='SEP Start Time')
+
+    if pd.notnull(event[TIME_FLARE]):
+        Flare_time=pd.to_datetime(event[TIME_FLARE])
+        ax.axvline(Flare_time, color='yellow', linestyle='--', label='Flare Xray Peak Time')
+    
+    if pd.notnull(event[TIME_CME]):
+        CME_time=pd.to_datetime(event[TIME_CME])
+        ax.axvline(CME_time, color='purple', linestyle='--', label='CME CDAW First Look Time')
+    
     ax.legend()
+    plt.show()
 
     return fig,ax
 
