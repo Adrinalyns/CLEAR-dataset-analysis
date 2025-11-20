@@ -506,3 +506,21 @@ def print_differences_btwn_TC_AB(df,column_name):
         if (row[TC_100 + column_name] != row[AB_100 + column_name]) & (pd.notnull(row[TC_100 + column_name]) | pd.notnull(row[AB_100 + column_name])):
             print(f"\t100 MeV : {row[TC_100 + column_name]} vs {row[AB_100 + column_name]}")
         #assert len(values)<=1, f"Column {column_name} has different values for event index {index}: {values}"
+
+
+def test_in_progress(df):
+    #investigation on the falre_to_max and cme_to_max negative delays
+    #Why sep_to_max > 0
+
+    indexes=[232,286,361,381,400,445,468,492,493,503,504,549]
+
+    for index in indexes:
+        print(f"Testing index {index}...")
+        row=df.iloc[index]
+
+        print(f"\t file {row[TC_100 + 'Flux Time Series']}:")
+        print(f"\t Event type {TC_100}:")
+        print(f"\t \t SEP start time: {row[TC_100 + TIME_SEP]}")
+        #print(f"\t \t Max Flux Time: {   row[TC_100 + TIME_MAX]}")
+        #print(f"\t \t Flare Xray Peak Time: {row[TIME_FLARE]}")
+        #print(f"\t \t CME CDAW First Look Time: {row[TIME_CME]}")
