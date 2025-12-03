@@ -351,6 +351,7 @@ def prepare_dataframe():
 
     #Read the main SEP event file into a pandas DataFrame
     df = pd.read_csv(file_path + file_name)
+
     df=df.iloc[:-1] #removing the last row because its longitude is out of range [-180;180]
 
     #Convert relevant columns to the correct data type
@@ -378,6 +379,14 @@ def prepare_dataframe():
     #Correcting the SEP to peak and SEP to max delay columns if they exist
     df=corrects_sep_to_max_delay(df)
     df=corrects_sep_to_peak_delay(df)
+
+    #TO BE DELETED WHEN THE ISSUE ON THE FLARE TIME FOR EVENT 410 IS FIXED
+    print(f'\n{df["Time Period Start"].iloc[410]} / Event 410 : Checking the cme time consistency...')
+    print(f'\t cme time : {df.iloc[410][TIME_CME]}')
+    print(f'\tstart time : {df.iloc[410]["Time Period Start"]}')
+    print('setting the CME to Max delay to NaN for this event AB_10, 1B_30...\n')  
+    df.loc[410,AB_10 + CME_TO_MAX]=np.nan
+    df.loc[410,AB_30 + CME_TO_MAX]=np.nan
     
     return df
  
@@ -432,12 +441,23 @@ def histogram_of_delays_max(df,event_type,Event_longitude=None,Flare_magnitude=N
     #Plot the histogram of the CME to Max delays for the selected subset of events
     fig,ax=plt.subplots(1,1,figsize=(10,6))
 
+    mean_CME_to_max=np.mean(CME_to_max_delays)
+    std_CME_to_max=np.std(CME_to_max_delays)
+    print(f'Mean CME to Max Delay: {mean_CME_to_max:.2f} hours, Std: {std_CME_to_max:.2f} hours')
     counts, bins = np.histogram(CME_to_max_delays, bins=30)
-    ax.stairs(counts, bins, label=' CME to Max Delay')
+    ax.stairs(counts, bins, label=f' CME to Max Delay, $\mu$={mean_CME_to_max:.2f} h, $\sigma$={std_CME_to_max:.2f} h')
+
+    mean_Flare_to_max=np.mean(Flare_to_max_delays)
+    std_Flare_to_max=np.std(Flare_to_max_delays)
+    print(f'Mean Flare to Max Delay: {mean_Flare_to_max:.2f} hours, Std: {std_Flare_to_max:.2f} hours')
     counts, bins = np.histogram(Flare_to_max_delays, bins=30)
-    ax.stairs(counts, bins, label=' Flare to Max Delay')
+    ax.stairs(counts, bins, label=f' Flare to Max Delay, $\mu$={mean_Flare_to_max:.2f} h, $\sigma$={std_Flare_to_max:.2f} h')
+
+    mean_SEP_to_max=np.mean(SEP_to_max_delays)
+    std_SEP_to_max=np.std(SEP_to_max_delays)
+    print(f'Mean SEP to Max Delay: {mean_SEP_to_max:.2f} hours, Std: {std_SEP_to_max:.2f} hours')
     counts, bins = np.histogram(SEP_to_max_delays, bins=30)
-    ax.stairs(counts, bins, label=' SEP to Max Delay')
+    ax.stairs(counts, bins, label=f' SEP to Max Delay, $\mu$={mean_SEP_to_max:.2f} h, $\sigma$={std_SEP_to_max:.2f} h')
 
     #Create the title based on the selection criteria
     title=f'Histogram of Delays for {event_type}, '
@@ -492,18 +512,35 @@ def histogram_of_delays_peak(df,event_type,Event_longitude=None,Flare_magnitude=
 
     #Get the delays for the selected subset of events and convert them to hours
     CME_to_peak_delays=df_subset[event_type + CME_TO_PEAK].dropna().values/60.0 #in hours
+
     Flare_to_peak_delays=df_subset[event_type + FLARE_TO_PEAK].dropna().values/60.0 #in hours
+    #TO BE DELETED WHEN ISSUE ON NEGATIVE DELAYS IS FIXED
+    Flare_to_peak_delays=Flare_to_peak_delays[Flare_to_peak_delays>= 0] 
+
     SEP_to_peak_delays=df_subset[event_type + SEP_TO_PEAK].dropna().values/60.0 #in hours
+    #TO BE DELETED WHEN ISSUE ON NEGATIVE DELAYS IS FIXED
+    SEP_to_peak_delays=SEP_to_peak_delays[SEP_to_peak_delays>= 0] 
 
     #Plot the histogram of the CME to Peak delays for the selected subset of events
     fig,ax=plt.subplots(1,1,figsize=(10,6))
 
+    mean_CME_to_peak=np.mean(CME_to_peak_delays)
+    std_CME_to_peak=np.std(CME_to_peak_delays)
+    print(f'Mean CME to Peak Delay: {mean_CME_to_peak:.2f} hours, Std: {std_CME_to_peak:.2f} hours')
     counts, bins = np.histogram(CME_to_peak_delays, bins=30)
-    ax.stairs(counts, bins, label=' CME to Peak Delay')
+    ax.stairs(counts, bins, label=f' CME to Peak Delay, $\mu$={mean_CME_to_peak:.2f} h, $\sigma$={std_CME_to_peak:.2f} h')
+    
+    mean_Flare_to_peak=np.mean(Flare_to_peak_delays)
+    std_Flare_to_peak=np.std(Flare_to_peak_delays)
+    print(f'Mean Flare to Peak Delay: {mean_Flare_to_peak:.2f} hours, Std: {std_Flare_to_peak:.2f} hours')
     counts, bins = np.histogram(Flare_to_peak_delays, bins=30)
-    ax.stairs(counts, bins, label=' Flare to Peak Delay')
+    ax.stairs(counts, bins, label=f' Flare to Peak Delay, $\mu$={mean_Flare_to_peak:.2f} h, $\sigma$={std_Flare_to_peak:.2f} h')
+    
+    mean_SEP_to_peak=np.mean(SEP_to_peak_delays)
+    std_SEP_to_peak=np.std(SEP_to_peak_delays)
+    print(f'Mean SEP to Peak Delay: {mean_SEP_to_peak:.2f} hours, Std: {std_SEP_to_peak:.2f} hours')
     counts, bins = np.histogram(SEP_to_peak_delays, bins=30)
-    ax.stairs(counts, bins, label=' SEP to Peak Delay')
+    ax.stairs(counts, bins, label=f' SEP to Peak Delay, $\mu$={mean_SEP_to_peak:.2f} h, $\sigma$={std_SEP_to_peak:.2f} h')
 
     #Create the title based on the selection criteria
     title=f'Histogram of Delays for {event_type}, '
@@ -535,15 +572,41 @@ def histogram_of_delays_peak(df,event_type,Event_longitude=None,Flare_magnitude=
 df=load_generate_dataset()
 
 def main():
-    histogram_of_delays_max(df,TC_10,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
-    histogram_of_delays_max(df,TC_30,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
-    histogram_of_delays_max(df,TC_50,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
-    histogram_of_delays_max(df,TC_100,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
+    #Varying event type:
+    """
+    histogram_of_delays_max(df,TC_10)
+    histogram_of_delays_max(df,TC_30)
+    histogram_of_delays_max(df,TC_50)
+    histogram_of_delays_max(df,TC_100)
+    """
+    histogram_of_delays_max(df,AB_10)
+    histogram_of_delays_max(df,AB_30)
+    histogram_of_delays_max(df,AB_50)
+    histogram_of_delays_max(df,AB_100)
+    
 
-    histogram_of_delays_peak(df,TC_10,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
-    histogram_of_delays_peak(df,TC_30,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
-    histogram_of_delays_peak(df,TC_50,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
-    histogram_of_delays_peak(df,TC_100,Event_longitude=WESTERN,Flare_magnitude=1e-5,debug=True)
+    """
+    histogram_of_delays_peak(df,TC_10,Event_longitude=WESTERN,Flare_magnitude=1e-5)
+    histogram_of_delays_peak(df,TC_30,Event_longitude=WESTERN,Flare_magnitude=1e-5)
+    histogram_of_delays_peak(df,TC_50,Event_longitude=WESTERN,Flare_magnitude=1e-5)
+    histogram_of_delays_peak(df,TC_100,Event_longitude=WESTERN,Flare_magnitude=1e-5)
+    
+    #Varying only the flare magnitude threshold
+    flare_magnitudes=[1e-6,1e-5,5e-5,1e-4,5e-4, 1e-3]
+    for flare_magnitude in flare_magnitudes:
+    
+        histogram_of_delays_peak(df,TC_10,Flare_magnitude=flare_magnitude)
+    """
+
+
+
+
+
+
+
+
+
+
 
 
 
