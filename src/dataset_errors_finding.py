@@ -9,6 +9,7 @@ from constants import FLARE_TO_PEAK, CME_TO_PEAK, SEP_TO_PEAK, FLARE_TO_MAX, CME
 
 
 
+
 def test_rise_time_to_onset(df):
     '''
     Test the rise time to onset for all events, looking at all event types if they exist.
@@ -509,18 +510,29 @@ def print_differences_btwn_TC_AB(df,column_name):
 
 
 def test_in_progress(df):
+
+    from work import plot_flux_time_series
+    
     #investigation on the falre_to_max and cme_to_max negative delays
     #Why sep_to_max > 0
+    #2,6,14,27,27,27,38,81,122,129,164,
+    indexes=[172,193,197,197,236,237,248,250,253,266,275,275,277,280,284,292,292]
+    event_type = [TC_50,TC_10,TC_10,TC_30,TC_100,TC_30,TC_50,TC_100,TC_10,TC_10,TC_10,TC_30,TC_30,TC_10,TC_10,TC_10,TC_30]
+    #1-11 : GOES-6
+    #12-170 : GOES-7
+    #171-308 : GOES-8
+    #309-357 : GOES-11
+    
 
-    indexes=[232,286,361,381,400,445,468,492,493,503,504,549]
-
-    for index in indexes:
+    for nb, index in enumerate(indexes):
         print(f"Testing index {index}...")
         row=df.iloc[index]
-
-        print(f"\t file {row[TC_100 + 'Flux Time Series']}:")
-        print(f"\t Event type {TC_100}:")
-        print(f"\t \t SEP start time: {row[TC_100 + TIME_SEP]}")
+        flux_type = event_type[nb]
+        print(f"\tflux : {flux_type}")
+        print(f"\t file {row[flux_type + 'Flux Time Series']}:")
+        print(f"\t \t SEP start time: {row[flux_type + TIME_SEP]}")
+        print(f"\t \t Onset peak time: {row[flux_type + TIME_PEAK]}")
+        plot_flux_time_series('../output/opsep/GOES-08_integral_enhance_idsep/',row,flux_type)
         #print(f"\t \t Max Flux Time: {   row[TC_100 + TIME_MAX]}")
         #print(f"\t \t Flare Xray Peak Time: {row[TIME_FLARE]}")
         #print(f"\t \t CME CDAW First Look Time: {row[TIME_CME]}")
