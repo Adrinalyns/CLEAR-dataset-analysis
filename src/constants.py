@@ -20,7 +20,7 @@ WESTERN=(0,180)
 
 #Time constant for Flare and CME, that doesn't depends on the flux type
 TIME_FLARE='Flare Xray Peak Time'
-TIME_CME='CME CDAW First Look Time'
+TIME_CME='CDAW CME First Look Time'
 
 #Time key word for Onset peak, and max flux that depends on the flux type
 TIME_PEAK='Onset Peak Time'

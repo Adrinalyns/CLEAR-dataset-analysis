@@ -463,6 +463,17 @@ def test_positive_Flare_to_max_delay(df,print_terminal=False):
     print("All Flare to max delays are positive!")
 
 
+def all_tests(df):
+    test_rise_time_to_onset(df)
+    test_rise_time_to_max(df)
+    test_longitude_range(df)
+    test_positive_SEP_to_peak_delay(df)
+    test_positive_CME_to_peak_delay(df)
+    test_positive_Flare_to_peak_delay(df)
+    test_positive_SEP_to_max_delay(df)
+    test_positive_CME_to_max_delay(df)
+    test_positive_Flare_to_max_delay(df)
+
 def print_value_for_each_event_type(df,column_name):
     '''
     Print the values of a given column for each event type in all events.

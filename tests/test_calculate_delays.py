@@ -213,6 +213,7 @@ file_path='Datasets/'
 #df = pd.read_csv(file_path + file_name)
 df = pd.read_pickle(file_path + file_name)
 
+
 #Calculate all aditional columns (delays)
 df=calculate_CME_to_max_delay(df)
 df=calculate_flare_to_peak_delay(df)

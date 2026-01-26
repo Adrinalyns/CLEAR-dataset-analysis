@@ -28,59 +28,76 @@ All Fluxes Time Series,
 		Fluence Spectrum Energy Bins (MeV),
 		Fluence Spectrum Energy Bin Centers (MeV),
 Other parameters:
-    Cycle,
-    EventType,
-    Case,
-    Flare Xray Start Time,
-    Flare Xray Peak Time,
-    Flare X-ray End Time,
-    Flare Class,
-    Flare Opt,
-    Flare Magnitude,
-    Flare Integrated Flux,
-    Flare Duration,
-    Flare Xray Time To Peak,
-    Active Region,
-    AR Area,
-    AR Spot Class,
-    AR Mag Class,
-    AR Carrington,
-    Event Location From Center,
-    Event Latitude,
-    Event Longitude,
-    Event Location Source,
-    Event Location from Center 2,
-    Event Latitude 2,
-    Event Longitude 2,
-    Event Location Source 2,
-    Radio Rbr245Max,
-    Radio Rbr2695Max,
-    Radio Rbr8800,
-    Radio TyIII_Imp,
-    Radio m_TyII Start Time,
-    Radio m_TyII End Time,
-    Radio TyII Imp,
-    Radio TyII Speed,
-    Radio m_TyII Start Frequency,
-    Radio m_TyII End Frequency,
-    Radio Station,
-    Radio DH Start Time,
-    Radio DH End Time,
-    Radio DH Start Frequency,
-    Radio DH End Frequency,
-    Radio DH Note,
-    Radio TyIV Start Time,
-    Radio TyIV End Time,
-    Radio TyIV Imp,
-    Radio TyIV Duration,
-    CME CDAW First Look Time,
-    CDAW CME Speed,
-    DONKI CME Speed,
-    CME Width,
-    CME Mean Position Angle,
-    ESP_CME,
-    GLE Event Number,
-    PRF,Comments
+    'Cycle', 
+    'EventType', 
+    'Case', 
+    'Flare' + 
+        ' Xray Start Time Deprecated', 
+        ' Xray Peak Time Deprecated', 
+        ' Xray End Time Deprecated', 
+        ' Class Deprecated', 
+        ' Magnitude Deprecated', 
+        ' Integrated Flux Deprecated', 
+        ' Xray Start Time', 
+        ' Xray Peak Time', 
+        ' Xray End Time', 
+        ' Class', 
+        ' Magnitude', 
+        ' Integrated Flux', 
+        ' Duration', 
+        ' Xray Time To Peak', 
+        ' Catalog ID', 'GOES Xray Satellite', 
+        ' Opt', 'Active Region', 
+    'AR Area', 'AR Spot Class', 
+    'AR Mag Class', 
+    'AR Carrington', 
+    'Event Location From Center', 
+    'Event Latitude', 
+    'Event Longitude', 
+    'Event Location Source', 
+    'Event Location from Center 2', 
+    'Event Latitude 2', 'Event Longitude 2', 
+    'Event Location Source 2', 
+    'Radio' +  
+        ' Rbr245Max', 
+        ' Rbr2695Max', 
+        ' Rbr8800', 
+        ' TyIII_Imp', 
+        ' m_TyII Start Time', 
+        ' m_TyII End Time', 
+        ' TyII Imp', 
+        ' TyII Speed', 
+        ' m_TyII Start Frequency', 
+        ' m_TyII End Frequency', 
+        ' Station', 
+        ' DH Start Time', 
+        ' DH End Time', 
+        ' DH Start Frequency', 
+        ' DH End Frequency', 
+        ' DH Note', 
+        ' TyIV Start Time', 
+        ' TyIV End Time', 
+        ' TyIV Imp', 
+        ' TyIV Duration', 
+    'CDAW CME' + 
+        ' First Look Time', 
+        ' Speed', 
+        ' Width', 
+        ' Mean Position Angle', 
+    'DONKI CME' + 
+        ' Start Time', 
+        ' Speed', 
+        ' Half Width', 
+        ' Lat', 
+        ' Lon', 
+        ' Time at 21.5', 
+        ' Catalog ID', 
+        ' Measurement Technique', 
+    'ESP_CME', 
+    'GLE Event Number', 
+    'PRF', 
+    'Comments'
+    
 '''
 
 import pandas as pd
@@ -352,8 +369,6 @@ def prepare_dataframe():
     #Read the main SEP event file into a pandas DataFrame
     df = pd.read_csv(file_path + file_name)
 
-    df=df.iloc[:-1] #removing the last row because its longitude is out of range [-180;180]
-
     #Convert relevant columns to the correct data type
     df=convert_column_to_date(df,'Time Period Start',notify_changes=True)
 
@@ -370,7 +385,7 @@ def prepare_dataframe():
         df=convert_column_to_date(df,event_type + TIME_PEAK,notify_changes=True)
         df=convert_column_to_date(df,event_type + TIME_MAX,notify_changes=True)
 
-    #Calculate all aditional columns (delays)
+    #Calculate all additional columns (delays)
     df=calculate_CME_to_max_delay(df)
     df=calculate_flare_to_max_delay(df)
     df=calculate_flare_to_peak_delay(df)
@@ -380,13 +395,15 @@ def prepare_dataframe():
     df=corrects_sep_to_max_delay(df)
     df=corrects_sep_to_peak_delay(df)
 
-    #TO BE DELETED WHEN THE ISSUE ON THE FLARE TIME FOR EVENT 410 IS FIXED
-    print(f'\n{df["Time Period Start"].iloc[410]} / Event 410 : Checking the cme time consistency...')
-    print(f'\t cme time : {df.iloc[410][TIME_CME]}')
-    print(f'\tstart time : {df.iloc[410]["Time Period Start"]}')
+    
+    #TO BE DELETED WHEN THE ISSUE ON THE FLARE TIME FOR EVENT 409 IS FIXED
+    print(f'\n{df["Time Period Start"].iloc[409]} / Event 409 : Checking the cme time consistency...')
+    print(f'\t cme time : {df.iloc[409][TIME_CME]}')
+    print(f'\tstart time : {df.iloc[409]["Time Period Start"]}')
     print('setting the CME to Max delay to NaN for this event AB_10, 1B_30...\n')  
-    df.loc[410,AB_10 + CME_TO_MAX]=np.nan
-    df.loc[410,AB_30 + CME_TO_MAX]=np.nan
+    df.loc[409,AB_10 + CME_TO_MAX]=np.nan
+    df.loc[409,AB_30 + CME_TO_MAX]=np.nan
+    
     
     return df
  
@@ -514,12 +531,11 @@ def histogram_of_delays_peak(df,event_type,Event_longitude=None,Flare_magnitude=
     CME_to_peak_delays=df_subset[event_type + CME_TO_PEAK].dropna().values/60.0 #in hours
 
     Flare_to_peak_delays=df_subset[event_type + FLARE_TO_PEAK].dropna().values/60.0 #in hours
-    #TO BE DELETED WHEN ISSUE ON NEGATIVE DELAYS IS FIXED
-    Flare_to_peak_delays=Flare_to_peak_delays[Flare_to_peak_delays>= 0] 
 
     SEP_to_peak_delays=df_subset[event_type + SEP_TO_PEAK].dropna().values/60.0 #in hours
+    
     #TO BE DELETED WHEN ISSUE ON NEGATIVE DELAYS IS FIXED
-    SEP_to_peak_delays=SEP_to_peak_delays[SEP_to_peak_delays>= 0] 
+    #SEP_to_peak_delays=SEP_to_peak_delays[SEP_to_peak_delays>= 0] 
 
     #Plot the histogram of the CME to Peak delays for the selected subset of events
     fig,ax=plt.subplots(1,1,figsize=(10,6))
