@@ -467,12 +467,12 @@ def all_tests(df):
     test_rise_time_to_onset(df)
     test_rise_time_to_max(df)
     test_longitude_range(df)
-    test_positive_SEP_to_peak_delay(df)
-    test_positive_CME_to_peak_delay(df)
-    test_positive_Flare_to_peak_delay(df)
-    test_positive_SEP_to_max_delay(df)
     test_positive_CME_to_max_delay(df)
     test_positive_Flare_to_max_delay(df)
+    test_positive_SEP_to_max_delay(df)
+    test_positive_CME_to_peak_delay(df)
+    test_positive_Flare_to_peak_delay(df)
+    test_positive_SEP_to_peak_delay(df)
 
 def print_value_for_each_event_type(df,column_name):
     '''
